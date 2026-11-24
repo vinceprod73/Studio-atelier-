@@ -1,0 +1,2956 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atelier HTML v4.0 // NÉON DECK — Studio IA &amp; Exécution Multi-Langages</title>
+<style>
+:root {
+  --fond: #07090f;
+  --panneau: #0d121d;
+  --panneau-2: #141c2d;
+  --bord: rgba(0, 240, 255, 0.28);
+  --texte: #eef6ff;
+  --doux: #8aa0bd;
+  --accent: #fcee0a;
+  --accent-2: #00f0ff;
+  --alerte: #ff003c;
+  --ok: #39ff14;
+  --clip-panel: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  --clip-btn: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  background-color: var(--fond);
+  background-image:
+    radial-gradient(circle at 88% 4%, rgba(252, 238, 10, 0.10), transparent 34%),
+    radial-gradient(circle at 12% 18%, rgba(0, 240, 255, 0.09), transparent 38%),
+    linear-gradient(rgba(0, 240, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 34px 34px, 34px 34px;
+  color: var(--texte);
+  font-family: "Bahnschrift", "DIN Alternate", "Rajdhani", "Space Grotesk", system-ui, sans-serif;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.016) 0px,
+    rgba(255, 255, 255, 0.016) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+header {
+  padding: 11px 3.5vw;
+  border-bottom: 1px solid var(--bord);
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(90deg, rgba(252, 238, 10, 0.13), rgba(13, 18, 29, 0.92) 42%, rgba(0, 240, 255, 0.07));
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+h1 {
+  margin: 0;
+  font-size: 1.24rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.06em;
+  color: var(--texte);
+  text-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+}
+.badge-v3 {
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(252, 238, 10, 0.16);
+  color: var(--accent);
+  border: 1px solid rgba(252, 238, 10, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+header small {
+  color: var(--accent-2);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(330px, 450px) 1fr;
+  min-height: 0;
+}
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+.left {
+  padding: 14px 3.5vw;
+  border-right: 1px solid var(--bord);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  background: rgba(7, 9, 15, 0.55);
+}
+@media (max-width: 900px) {
+  .left {
+    border-right: 0;
+    border-bottom: 1px solid var(--bord);
+  }
+}
+textarea, input, select {
+  width: 100%;
+  background: rgba(8, 11, 18, 0.92);
+  color: var(--texte);
+  border: 1px solid var(--bord);
+  border-radius: 2px;
+  padding: 9px 11px;
+  font: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+textarea {
+  min-height: 102px;
+  resize: vertical;
+  line-height: 1.45;
+}
+input, select {
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+}
+.config-box {
+  background: rgba(13, 18, 29, 0.9);
+  border: 1px solid var(--bord);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  clip-path: var(--clip-panel);
+}
+.config-row {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  gap: 8px;
+}
+@media (max-width: 480px) {
+  .config-row {
+    grid-template-columns: 1fr;
+  }
+}
+.lang-box {
+  background: rgba(20, 28, 45, 0.85);
+  border: 1px solid rgba(252, 238, 10, 0.35);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lang-grid {
+  display: grid;
+  grid-template-columns: 1fr 124px;
+  gap: 8px;
+}
+@media (max-width: 480px) {
+  .lang-grid {
+    grid-template-columns: 1fr;
+  }
+}
+#lang-ext-badge {
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  color: var(--accent);
+  font-weight: 700;
+}
+.key-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.key-row input {
+  flex: 1;
+}
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--doux);
+  cursor: pointer;
+}
+.check-row input {
+  width: auto;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+button {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 9px 13px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #06080d;
+  cursor: pointer;
+  clip-path: var(--clip-btn);
+  transition: transform 0.08s, filter 0.15s, background 0.15s, color 0.15s;
+}
+button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+button.sec {
+  background: rgba(0, 240, 255, 0.05);
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+button.sec:hover:not(:disabled) {
+  background: rgba(0, 240, 255, 0.16);
+}
+button.alt {
+  border-color: var(--accent-2);
+  background: var(--accent-2);
+  color: #04161f;
+}
+button.warn {
+  border-color: var(--alerte);
+  background: rgba(255, 0, 60, 0.22);
+  color: #ff7a99;
+}
+button.small {
+  padding: 5px 10px;
+  font-size: 0.78rem;
+}
+button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.section-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--accent-2);
+  gap: 8px;
+}
+.ex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ex button {
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.77rem;
+  padding: 5px 9px;
+}
+.primary-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.primary-row > button.main-gen {
+  flex: 1;
+  min-width: 145px;
+  box-shadow: 0 0 18px rgba(252, 238, 10, 0.22);
+}
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.etat {
+  min-height: 1.5em;
+  color: var(--doux);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  line-height: 1.38;
+  padding: 7px 10px;
+  background: rgba(13, 18, 29, 0.8);
+  border-left: 3px solid var(--accent-2);
+}
+.etat.err {
+  color: #ff7a99;
+  border-left-color: var(--alerte);
+  background: rgba(255, 0, 60, 0.10);
+}
+.etat.ok {
+  color: var(--ok);
+  border-left-color: var(--ok);
+  background: rgba(57, 255, 20, 0.08);
+}
+.etat.live {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: rgba(252, 238, 10, 0.09);
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  min-height: 66vh;
+}
+.bar {
+  display: flex;
+  gap: 6px;
+  padding: 9px 2.5vw;
+  border-bottom: 1px solid var(--bord);
+  flex-wrap: wrap;
+  align-items: center;
+  background: rgba(13, 18, 29, 0.75);
+}
+.bar button {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+}
+.bar button[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06080d;
+}
+.bar button[aria-selected="false"] {
+  background: transparent;
+  border-color: rgba(0, 240, 255, 0.35);
+  color: var(--accent-2);
+}
+.sep {
+  width: 1px;
+  height: 22px;
+  background: var(--bord);
+  margin: 0 3px;
+}
+.vp-group {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.vp-group button {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+.vp-group button.active-vp {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: #04161f;
+}
+.zone {
+  flex: 1;
+  position: relative;
+  min-height: 58vh;
+  background: #05070c;
+  overflow: hidden;
+}
+.preview-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background: #05070c;
+  transition: padding 0.2s ease;
+}
+.preview-wrap.vp-tablet {
+  padding: 14px;
+}
+.preview-wrap.vp-mobile {
+  padding: 14px;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+  transition: width 0.2s ease, max-width 0.2s ease, border-radius 0.2s ease;
+}
+.preview-wrap.vp-tablet iframe {
+  max-width: 768px;
+  border-radius: 6px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+.preview-wrap.vp-mobile iframe {
+  max-width: 390px;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+.code-editor-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--panneau);
+}
+.code-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 2.5vw;
+  border-bottom: 1px solid var(--bord);
+  background: rgba(7, 9, 15, 0.72);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--doux);
+}
+#code-editor {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 14px 2.5vw;
+  background: var(--panneau);
+  color: var(--texte);
+  font: 13px/1.55 "Cascadia Mono", "JetBrains Mono", monospace;
+  resize: none;
+  tab-size: 2;
+}
+.panel {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  padding: 14px 2.5vw;
+  background: var(--fond);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.card {
+  background: var(--panneau);
+  border: 1px solid var(--bord);
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  clip-path: var(--clip-panel);
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.card-title {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  font-size: 0.96rem;
+  margin: 0;
+}
+.code-box {
+  background: #05070c;
+  border: 1px solid var(--bord);
+  padding: 10px;
+  font: 12px/1.45 "Cascadia Mono", "JetBrains Mono", monospace;
+  color: var(--texte);
+  max-height: 210px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.oss-search {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.oss-search input {
+  flex: 1;
+  min-width: 180px;
+}
+.oss-search select {
+  width: auto;
+  min-width: 140px;
+}
+.oss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.oss-title {
+  font-weight: 700;
+  color: var(--accent-2);
+  text-decoration: none;
+  font-size: 1rem;
+}
+.oss-title:hover {
+  text-decoration: underline;
+}
+.oss-badge {
+  background: rgba(252, 238, 10, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(252, 238, 10, 0.45);
+  padding: 2px 8px;
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+}
+.oss-meta {
+  color: var(--doux);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.oss-desc {
+  margin: 0;
+  color: var(--texte);
+  font-size: 0.9rem;
+  line-height: 1.42;
+}
+.actions-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.diag-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 11px;
+  background: #070a11;
+  border-left: 3px solid var(--accent-2);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.diag-ok {
+  color: var(--ok);
+  font-weight: 700;
+}
+.diag-err {
+  color: #ff7a99;
+  font-weight: 700;
+}
+.proj-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 9px 11px;
+  background: #070a11;
+  border-left: 3px solid var(--accent);
+}
+.proj-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.proj-title {
+  font-weight: 700;
+  color: var(--texte);
+  font-size: 0.92rem;
+}
+.proj-meta {
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--doux);
+}
+.hide {
+  display: none !important;
+}
+.vide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--doux);
+  padding: 24px;
+  text-align: center;
+}
+.vide-box {
+  max-width: 560px;
+  line-height: 1.55;
+  padding: 22px;
+  background: rgba(13, 18, 29, 0.85);
+  border: 1px solid var(--bord);
+  clip-path: var(--clip-panel);
+}
+.vide-box strong {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pill-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.pill {
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  padding: 4px 9px;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  color: var(--accent-2);
+}
+footer {
+  padding: 10px 3.5vw 14px;
+  color: var(--doux);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  text-align: center;
+  border-top: 1px solid var(--bord);
+  background: rgba(13, 18, 29, 0.75);
+}
+
+.dropzone {
+  border: 2px dashed var(--accent-2);
+  background: rgba(0, 240, 255, 0.04);
+  padding: 28px 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  clip-path: var(--clip-panel);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.dropzone:hover, .dropzone.dragover {
+  background: rgba(252, 238, 10, 0.08);
+  border-color: var(--accent);
+}
+.dropzone-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.dropzone-title {
+  font-weight: 700;
+  color: var(--texte);
+  font-size: 1rem;
+}
+.dropzone-sub {
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--doux);
+}
+.import-meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  background: #070a11;
+  border-left: 3px solid var(--accent);
+  font-family: "Cascadia Mono", "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand-group">
+    <h1>ATELIER HTML</h1>
+    <span class="badge-v3">v4.0 PRO</span>
+    <small>STUDIO IA &bull; MULTI-LANGAGES &bull; ÉDITION DIRECTE &bull; EXTRACTION</small>
+  </div>
+  <div class="header-actions">
+    <select id="style-preset" title="Ambiance visuelle (mode HTML/Web)" style="width:auto;padding:5px 9px;font-size:.82rem">
+      <option value="auto" selected>Style : Adaptatif</option>
+      <option value="bento-dark">Style : Bento Sombre Néon</option>
+      <option value="editorial-clean">Style : Éditorial Clair</option>
+      <option value="arcade-retro">Style : Arcade Rétro</option>
+    </select>
+    <button type="button" class="sec small" id="save-proj-btn" disabled>Sauvegarder projet</button>
+  </div>
+</header>
+
+<main>
+  <div class="left">
+    <div class="config-box">
+      <div class="config-row">
+        <select id="provider" title="Moteur IA">
+          <option value="auto" selected>IA Automatique (Gratuit + Secours local)</option>
+          <option value="ollama">Ollama (localhost:11434)</option>
+          <option value="lmstudio">LM Studio (localhost:1234)</option>
+          <option value="llamacpp">llama.cpp server (localhost:8080)</option>
+          <option value="localai">LocalAI (localhost:8080)</option>
+          <option value="vllm">vLLM / SGLang (localhost:8000)</option>
+          <option value="gemini">Google Gemini (gratuit, clé gratuite)</option>
+          <option value="groq">Groq (gratuit, clé gratuite)</option>
+          <option value="openai">OpenAI (API sk-...)</option>
+        </select>
+        <select id="model" title="Modèle">
+          <option value="openai" selected>IA Code Web</option>
+        </select>
+      </div>
+      <input type="text" id="model-custom" class="hide" placeholder="Nom exact du modèle (à remplir si la liste est périmée)">
+      <input type="text" id="endpoint-url" class="hide" placeholder="URL du moteur (ex: http://localhost:1234/v1/chat/completions)">
+      <div class="key-row hide" id="key-wrap">
+        <input type="password" id="apikey" placeholder="Clé API (optionnelle en local, requise pour OpenAI)">
+        <button type="button" class="sec small" id="clear-key" title="Effacer la clé enregistrée">Effacer</button>
+      </div>
+
+      <div class="lang-box">
+        <div class="section-label">
+          <label for="lang-select">Langage cible :</label>
+          <span id="lang-ext-badge">.html</span>
+        </div>
+        <div class="lang-grid">
+          <select id="lang-select" title="Choisir un langage informatique"></select>
+          <button type="button" class="alt small" id="py-quick-btn" title="Basculer en Python et générer">Coder Python</button>
+        </div>
+      </div>
+
+      <label class="check-row">
+        <input type="checkbox" id="auto-run">
+        <span>Créer automatiquement 4 s après la frappe, nouveau projet seulement (Ctrl+Entrée / Échap pour stopper)</span>
+      </label>
+      <label class="check-row">
+        <input type="checkbox" id="auto-oss" checked>
+        <span>Enrichir avec Codeberg &amp; GitLab à la création</span>
+      </label>
+      <label class="check-row">
+        <input type="checkbox" id="mode-rapide">
+        <span>Mode rapide : version compacte, génération plus courte</span>
+      </label>
+      <label class="check-row">
+        <input type="checkbox" id="auto-fix-loop" checked>
+        <span>Auto-réparation automatique si erreur détectée</span>
+      </label>
+    </div>
+
+    <div class="section-label">
+      <label for="q">Décris ce que tu veux créer ou modifier :</label>
+      <span id="char-count">0 car.</span>
+    </div>
+    <textarea id="q" placeholder="Ex. Un jeu de Snake, un script d'automatisation Python, une API Rust/Go, une requête SQL, un site web..."></textarea>
+    <div class="ex" id="ex"></div>
+    <div class="ex hide" id="idees"></div>
+
+    <div class="primary-row">
+      <button class="main-gen" id="go">Générer le code</button>
+      <button class="warn hide" id="stop-btn" type="button">Arrêter</button>
+    </div>
+
+    <div class="btn-grid">
+      <button class="sec" id="rev" disabled>Relire &amp; corriger</button>
+      <button class="sec" id="test-btn">Tester le studio</button>
+      <button class="sec" id="undo" disabled>Annuler</button>
+      <button class="sec" id="neuf">Tout effacer</button>
+    </div>
+    <div class="etat" id="etat" role="status"></div>
+  </div>
+
+  <div class="right">
+    <div class="bar">
+      <button id="tp" aria-selected="true">Aperçu</button>
+      <button id="tc" aria-selected="false">Code &amp; Éditeur</button>
+      <button id="timport" aria-selected="false">Importer</button>
+      <button id="textract" aria-selected="false">Extraire (HTML/CSS/JS)</button>
+      <button id="toss" aria-selected="false">Open Source</button>
+      <button id="tproj" aria-selected="false">Projets (<span id="proj-count">0</span>)</button>
+      <button id="tdiag" aria-selected="false">Tests &amp; Santé</button>
+      <span class="sep"></span>
+      <div class="vp-group" title="Taille d'aperçu HTML">
+        <button type="button" class="sec active-vp" id="vp-desk" data-vp="desktop">Bureau</button>
+        <button type="button" class="sec" id="vp-tab" data-vp="tablet">Tablette</button>
+        <button type="button" class="sec" id="vp-mob" data-vp="mobile">Mobile</button>
+      </div>
+      <span class="sep"></span>
+      <button id="cp" class="sec small">Copier tout</button>
+      <button id="dl" class="sec small hide">Télécharger</button>
+    </div>
+
+    <div class="zone">
+      <div class="vide" id="vide">
+        <div class="vide-box">
+          <p><strong>Écris une idée simple à gauche — le studio génère du code en HTML ou dans le langage de ton choix.</strong></p>
+          <p>Python, JavaScript, TypeScript, C, C++, C#, Rust, Go, Java, Kotlin, Swift, PHP, Ruby, SQL, Bash, PowerShell, Lua, Dart, Scala, Haskell, R, Julia, Assembly, HTML/CSS et plus encore.</p>
+          <div class="pill-row">
+            <span class="pill">Tous langages</span>
+            <span class="pill">Bouton Coder Python</span>
+            <span class="pill">Édition code en direct</span>
+            <span class="pill">Export fichier natif (.py, .rs, .go, .html…)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-wrap hide" id="ap-wrap">
+        <iframe id="ap" title="Aperçu" sandbox="allow-scripts allow-forms allow-modals"></iframe>
+      </div>
+
+      <div class="code-editor-wrap hide" id="code-wrap">
+        <div class="code-toolbar">
+          <span id="editor-hint">Édition directe du code (les modifications mettent à jour le projet et l'export)</span>
+          <div class="actions-row">
+            <button type="button" class="alt small" id="run-sandbox-btn" title="Exécuter le code JS/JSON/HTML dans le bac à sable">Exécuter (Sandbox)</button>
+            <button type="button" class="sec small" id="format-code">Vérifier / Nettoyer</button>
+            <button type="button" class="small" id="apply-code">Appliquer</button>
+          </div>
+        </div>
+        <textarea id="code-editor" spellcheck="false" aria-label="Éditeur de code"></textarea>
+        <div id="sandbox-console" class="hide" style="border-top:1px solid var(--bord);background:#05070c;padding:10px 2.5vw;max-height:190px;overflow:auto;font:12px/1.45 'Cascadia Mono','JetBrains Mono',monospace;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <strong style="color:var(--accent-2);text-transform:uppercase;font-size:0.75rem;">Console d'exécution Sandbox</strong>
+            <button type="button" class="sec small" id="close-sandbox-btn">Fermer</button>
+          </div>
+          <pre id="sandbox-out" style="margin:0;white-space:pre-wrap;color:var(--texte);"></pre>
+        </div>
+      </div>
+
+      <div id="import" class="panel hide">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Importer un fichier existant pour le modifier</h2>
+            <div class="actions-row">
+              <button type="button" class="sec small" id="import-browse-btn">Choisir un fichier…</button>
+              <button type="button" class="sec small" id="import-multi-btn" title="Fusionner index.html + style.css + app.js">Fusionner HTML+CSS+JS…</button>
+            </div>
+          </div>
+          <p class="oss-desc">Importe un fichier déjà créé ailleurs (<code>.html</code>, <code>.py</code>, <code>.js</code>, <code>.ts</code>, <code>.rs</code>, <code>.go</code>, <code>.c</code>, <code>.cpp</code>, <code>.sql</code>, <code>.css</code>, <code>.json</code>, <code>.md</code>…) ou colle directement son contenu ci-dessous. Le langage est détecté automatiquement.</p>
+
+          <input type="file" id="import-file-input" class="hide" accept=".html,.htm,.py,.js,.mjs,.ts,.tsx,.jsx,.c,.h,.cpp,.hpp,.cs,.rs,.go,.java,.kt,.swift,.php,.rb,.sql,.sh,.bash,.ps1,.lua,.dart,.scala,.hs,.r,.R,.jl,.pl,.ex,.exs,.clj,.asm,.s,.css,.json,.yaml,.yml,.md,.txt">
+          <input type="file" id="import-multi-input" class="hide" multiple accept=".html,.htm,.css,.js">
+
+          <div class="dropzone" id="import-dropzone" tabindex="0" role="button" aria-label="Déposer un fichier ici ou cliquer pour parcourir">
+            <div class="dropzone-icon">&#8682;</div>
+            <div class="dropzone-title">Glisse-dépose ton fichier ici ou clique pour parcourir</div>
+            <div class="dropzone-sub">Détection automatique du langage &bull; Sauvegarde de l'état précédent (Annuler disponible)</div>
+          </div>
+
+          <div class="import-meta-bar hide" id="import-meta">
+            <span id="import-file-info">Aucun fichier chargé</span>
+            <span class="oss-badge" id="import-lang-badge">.html</span>
+          </div>
+
+          <div class="section-label">
+            <label for="import-paste">Ou colle / ajuste le contenu avant importation :</label>
+            <span id="import-char-count">0 car.</span>
+          </div>
+          <textarea id="import-paste" spellcheck="false" style="min-height:170px;font-family:'Cascadia Mono','JetBrains Mono',monospace;font-size:0.82rem;" placeholder="Colle ici le code d'un fichier existant ou sélectionne un fichier ci-dessus..."></textarea>
+
+          <div class="actions-row" style="justify-content:flex-end;">
+            <button type="button" class="sec small" id="import-clear-btn">Effacer la zone</button>
+            <button type="button" class="small" id="import-load-btn" disabled>Charger dans l'atelier</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Modèles de démarrage riches (100% fonctionnels hors-ligne)</h2>
+            <span class="oss-badge">HTML + PYTHON + JSON</span>
+          </div>
+          <p class="oss-desc">Charge un point de départ déjà structuré et exécutable immédiatement, puis personnalise-le avec l'IA ou l'éditeur.</p>
+          <div class="ex" id="starter-templates"></div>
+        </div>
+      </div>
+
+      <div id="extract" class="panel hide">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Extraction séparée des blocs de code (Mode HTML/Web)</h2>
+            <div class="actions-row">
+              <button type="button" class="small" id="dl-all-parts" disabled>Télécharger les 3 fichiers séparés</button>
+            </div>
+          </div>
+          <p class="oss-desc" id="extract-info">Isole automatiquement la structure HTML (reliée à <code>style.css</code> et <code>app.js</code>), le CSS et le JavaScript lorsqu'une page HTML est active.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">1. Structure HTML (<span id="stat-html">0 car.</span>)</span>
+            <div class="actions-row">
+              <button type="button" class="sec small" id="cp-html" disabled>Copier HTML</button>
+              <button type="button" class="sec small" id="dl-html" disabled>index.html</button>
+            </div>
+          </div>
+          <pre class="code-box" id="out-html">Aucun code HTML généré pour le moment.</pre>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">2. Feuille de style CSS (<span id="stat-css">0 car.</span>)</span>
+            <div class="actions-row">
+              <button type="button" class="sec small" id="cp-css" disabled>Copier CSS</button>
+              <button type="button" class="sec small" id="dl-css" disabled>style.css</button>
+            </div>
+          </div>
+          <pre class="code-box" id="out-css">Aucun style CSS extrait.</pre>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">3. Logique JavaScript (<span id="stat-js">0 car.</span>)</span>
+            <div class="actions-row">
+              <button type="button" class="sec small" id="cp-js" disabled>Copier JS</button>
+              <button type="button" class="sec small" id="dl-js" disabled>app.js</button>
+            </div>
+          </div>
+          <pre class="code-box" id="out-js">Aucun script JS extrait.</pre>
+        </div>
+      </div>
+
+      <div id="oss" class="panel hide">
+        <div class="oss-search">
+          <input type="search" id="oss-q" placeholder="Chercher des projets open source (ex. snake, cli, markdown)...">
+          <select id="oss-src" title="Moteur open source">
+            <option value="both" selected>Codeberg + GitLab</option>
+            <option value="codeberg">Codeberg</option>
+            <option value="gitlab">GitLab</option>
+          </select>
+          <button id="oss-go" class="small">Chercher</button>
+        </div>
+        <div id="oss-etat" class="etat" role="status"></div>
+        <div id="oss-res" class="oss-list"></div>
+      </div>
+
+      <div id="proj" class="panel hide">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Projets sauvegardés localement</h2>
+            <button type="button" class="sec small" id="clear-proj-btn">Vider l'historique local</button>
+          </div>
+          <p class="oss-desc">Retrouve tes créations enregistrées dans ce navigateur (avec leur langage), recharge-les ou télécharge-les en un clic.</p>
+          <div id="proj-list" class="oss-list"></div>
+        </div>
+      </div>
+
+      <div id="diag" class="panel hide">
+        <div class="card">
+          <div class="card-head">
+            <h2 class="card-title">Diagnostic &amp; Tests automatisés</h2>
+            <button type="button" class="small" id="run-diag">Relancer les tests</button>
+          </div>
+          <p class="oss-desc">Vérifie le catalogue multi-langages, le mode Python, la structure du code, l'extracteur HTML/CSS/JS et la connectivité IA.</p>
+          <div id="diag-list" class="oss-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Créé par Vince Prod 73 — Studio IA Multi-Langages &amp; Autonome</footer>
+
+<script>
+var OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+var POLLINATIONS_URL = "https://text.pollinations.ai/openai";
+var ENGINE_URLS = {
+  auto: POLLINATIONS_URL,
+  ollama: "http://localhost:11434/v1/chat/completions",
+  lmstudio: "http://localhost:1234/v1/chat/completions",
+  llamacpp: "http://localhost:8080/v1/chat/completions",
+  localai: "http://localhost:8080/v1/chat/completions",
+  vllm: "http://localhost:8000/v1/chat/completions",
+  gemini: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+  groq: "https://api.groq.com/openai/v1/chat/completions",
+  openai: OPENAI_URL
+};
+var CODEBERG_API = "https://codeberg.org/api/v1/repos/search";
+var GITLAB_API = "https://gitlab.com/api/v4/projects";
+var STORAGE_PROJECTS_KEY = "atelier_html_projects_v3";
+var STORAGE_KEY_NAME = "openai_api_key";
+var STORAGE_KEY_POLLI = "pollinations_api_key";
+var STORAGE_KEY_GEMINI = "gemini_api_key";
+var STORAGE_KEY_GROQ = "groq_api_key";
+var POLLINATIONS_KEY_URL = "https://gen.pollinations.ai/v1/chat/completions";
+var autoFixCount = 0;
+var demandeInitiale = "";
+var cleIdees = "";
+
+var LANGUAGES = [
+  { id: "html", label: "HTML / CSS / JS (Page Web)", ext: ".html", mime: "text/html;charset=utf-8", defaultName: "ma-page.html", isHtml: true, fence: "html" },
+  { id: "python", label: "Python", ext: ".py", mime: "text/x-python;charset=utf-8", defaultName: "script.py", isHtml: false, fence: "python" },
+  { id: "javascript", label: "JavaScript (ES2024 / Node)", ext: ".js", mime: "application/javascript;charset=utf-8", defaultName: "app.js", isHtml: false, fence: "javascript" },
+  { id: "typescript", label: "TypeScript", ext: ".ts", mime: "application/typescript;charset=utf-8", defaultName: "app.ts", isHtml: false, fence: "typescript" },
+  { id: "c", label: "C (ISO C17)", ext: ".c", mime: "text/x-c;charset=utf-8", defaultName: "main.c", isHtml: false, fence: "c" },
+  { id: "cpp", label: "C++ (C++20)", ext: ".cpp", mime: "text/x-c++src;charset=utf-8", defaultName: "main.cpp", isHtml: false, fence: "cpp" },
+  { id: "csharp", label: "C# (.NET)", ext: ".cs", mime: "text/plain;charset=utf-8", defaultName: "Program.cs", isHtml: false, fence: "csharp" },
+  { id: "rust", label: "Rust", ext: ".rs", mime: "text/plain;charset=utf-8", defaultName: "main.rs", isHtml: false, fence: "rust" },
+  { id: "go", label: "Go", ext: ".go", mime: "text/plain;charset=utf-8", defaultName: "main.go", isHtml: false, fence: "go" },
+  { id: "java", label: "Java", ext: ".java", mime: "text/x-java-source;charset=utf-8", defaultName: "Main.java", isHtml: false, fence: "java" },
+  { id: "kotlin", label: "Kotlin", ext: ".kt", mime: "text/plain;charset=utf-8", defaultName: "Main.kt", isHtml: false, fence: "kotlin" },
+  { id: "swift", label: "Swift", ext: ".swift", mime: "text/plain;charset=utf-8", defaultName: "main.swift", isHtml: false, fence: "swift" },
+  { id: "php", label: "PHP", ext: ".php", mime: "application/x-httpd-php;charset=utf-8", defaultName: "index.php", isHtml: false, fence: "php" },
+  { id: "ruby", label: "Ruby", ext: ".rb", mime: "text/plain;charset=utf-8", defaultName: "script.rb", isHtml: false, fence: "ruby" },
+  { id: "sql", label: "SQL", ext: ".sql", mime: "application/sql;charset=utf-8", defaultName: "query.sql", isHtml: false, fence: "sql" },
+  { id: "bash", label: "Bash / Shell", ext: ".sh", mime: "application/x-sh;charset=utf-8", defaultName: "script.sh", isHtml: false, fence: "bash" },
+  { id: "powershell", label: "PowerShell", ext: ".ps1", mime: "text/plain;charset=utf-8", defaultName: "script.ps1", isHtml: false, fence: "powershell" },
+  { id: "lua", label: "Lua", ext: ".lua", mime: "text/plain;charset=utf-8", defaultName: "script.lua", isHtml: false, fence: "lua" },
+  { id: "dart", label: "Dart", ext: ".dart", mime: "text/plain;charset=utf-8", defaultName: "main.dart", isHtml: false, fence: "dart" },
+  { id: "scala", label: "Scala", ext: ".scala", mime: "text/plain;charset=utf-8", defaultName: "Main.scala", isHtml: false, fence: "scala" },
+  { id: "haskell", label: "Haskell", ext: ".hs", mime: "text/plain;charset=utf-8", defaultName: "Main.hs", isHtml: false, fence: "haskell" },
+  { id: "r", label: "R", ext: ".R", mime: "text/plain;charset=utf-8", defaultName: "script.R", isHtml: false, fence: "r" },
+  { id: "julia", label: "Julia", ext: ".jl", mime: "text/plain;charset=utf-8", defaultName: "script.jl", isHtml: false, fence: "julia" },
+  { id: "perl", label: "Perl", ext: ".pl", mime: "text/plain;charset=utf-8", defaultName: "script.pl", isHtml: false, fence: "perl" },
+  { id: "elixir", label: "Elixir", ext: ".ex", mime: "text/plain;charset=utf-8", defaultName: "main.ex", isHtml: false, fence: "elixir" },
+  { id: "clojure", label: "Clojure", ext: ".clj", mime: "text/plain;charset=utf-8", defaultName: "core.clj", isHtml: false, fence: "clojure" },
+  { id: "assembly", label: "Assembly (x86_64)", ext: ".asm", mime: "text/plain;charset=utf-8", defaultName: "program.asm", isHtml: false, fence: "asm" },
+  { id: "css", label: "CSS pur", ext: ".css", mime: "text/css;charset=utf-8", defaultName: "styles.css", isHtml: false, fence: "css" },
+  { id: "json", label: "JSON / Schéma", ext: ".json", mime: "application/json;charset=utf-8", defaultName: "data.json", isHtml: false, fence: "json" },
+  { id: "yaml", label: "YAML", ext: ".yaml", mime: "text/yaml;charset=utf-8", defaultName: "config.yaml", isHtml: false, fence: "yaml" },
+  { id: "markdown", label: "Markdown", ext: ".md", mime: "text/markdown;charset=utf-8", defaultName: "README.md", isHtml: false, fence: "markdown" }
+];
+
+function getLangSpec(langId) {
+  for (var i = 0; i < LANGUAGES.length; i++) {
+    if (LANGUAGES[i].id === langId) return LANGUAGES[i];
+  }
+  return LANGUAGES[0];
+}
+
+var STYLE_PRESETS = {
+  auto: "Adapte librement la direction artistique au sujet demandé.",
+  "bento-dark": "Utilise une interface sombre moderne (fond #0b1017, cartes #131c29, bordures subtiles, accents vifs, cartes organisées en grille bento nette).",
+  "editorial-clean": "Utilise une interface claire, épurée et éditoriale (fond #f8fafc, cartes blanches, typographie soignée, contraste élevé et espacements généreux).",
+  "arcade-retro": "Utilise une esthétique rétro-arcade soignée (couleurs vives contrastées, effets lumineux discrets, contrôles clairs et feedback sonore WebAudio optionnel)."
+};
+
+var SYS_HTML = [
+  "Tu es un ingénieur web senior. Tu ne produis QUE du HTML : un unique fichier complet (doctype, CSS dans <style>, JavaScript dans <script>), sans aucun texte avant ou après et sans balises markdown.",
+  "RÈGLES DE QUALITÉ :",
+  "1. Code COMPLET et fonctionnel : jamais de placeholder, de « à compléter » ni de « etc. ». Chaque fonction appelée doit exister.",
+  "2. Structure claire : sépare l’état de l’application, la logique et l’affichage ; fonctions courtes et nommées ; constantes en haut du script.",
+  "3. Robustesse : valide les entrées, gère les cas vides et limites, entoure localStorage et JSON.parse de try/catch, aucune erreur dans la console au chargement.",
+  "4. Jeux et animations : boucle requestAnimationFrame avec delta-time, canvas redimensionné à l’écran, contrôles clavier ET tactile, état de pause, game over et rejouer.",
+  "5. Applications : gestion d’état unique, rendu à partir de l’état, sauvegarde locale si utile, boutons et champs accessibles au clavier.",
+  "6. Aucune ressource externe (pas de CDN, pas d’image distante) : CSS, SVG intégrés, canvas ou emoji. Sons possibles avec l’API WebAudio.",
+  "7. Responsive, lisible sur téléphone, contrastes suffisants, textes en français sauf demande contraire.",
+  "8. Avant de répondre, relis mentalement ton code : accolades fermées, variables déclarées, événements branchés, aucune fonction manquante.",
+  "9. TAILLE : garde les données compactes (une ligne par entrée) et le reste du code court pour que la réponse arrive complète ; privilégie la qualité du contenu plutôt que les longs commentaires.",
+  "10. localStorage / sessionStorage peuvent être indisponibles dans l’aperçu : toujours dans un try/catch, avec une variable en mémoire en secours. N’écris jamais la chaîne <\/script> à l’intérieur d’un texte JavaScript.",
+  "11. La demande est souvent dictée à la voix : corrige mentalement les fautes de transcription, comprends l’intention et complète les détails évidents sans poser de question.",
+  "12. Avant de coder, décide en pensée : le public, 5 à 8 fonctions vraiment utiles, les cas limites. Puis écris directement le fichier, sans résumé ni explication.",
+  "13. Soigne ce qui donne un rendu professionnel : titre clair, état de départ déjà rempli (jamais une page vide), messages d’erreur gentils, boutons assez grands pour le doigt, focus visible, animations douces (respecte prefers-reduced-motion).",
+  "Ajoute en tout début un commentaire HTML : <!-- Vince Prod 73 -->."
+].join("\n");
+
+var RECETTES = [
+  { id: "dico", titre: "dictionnaire", re: /dictionnaire|glossaire|lexique|vocabulaire|définition|definition/i,
+    regles: "Écris 150 à 250 mots courants adaptés au public visé (pour des enfants : animaux, école, nature, nourriture, corps, famille, musique avec piano, guitare, violon, tambour…), regroupés par thème, au format compact « mot|définition|blague ». Recherche : compare sans majuscules, sans accents (normalize('NFD') puis suppression des diacritiques) et sans espaces en trop ; accepte le pluriel simple ; cherche aussi les mots qui commencent par la saisie et affiche des suggestions pendant la frappe. N’affiche JAMAIS seulement « aucun résultat » : propose 3 mots proches et un bouton « Ajouter ce mot » (l’utilisateur écrit lui-même la définition, gardée en mémoire et dans localStorage sous try/catch). Si la demande parle de blagues : une blague gentille, liée au mot, environ une fois sur trois au hasard (Math.random), jamais deux fois de suite.",
+    idees: [["🔎 Autocomplétion", "Ajoute l'autocomplétion pendant la frappe et un bouton « mot au hasard »."], ["⭐ Mot du jour", "Ajoute un « mot du jour » en haut de la page, différent chaque jour."]] },
+  { id: "jeu", titre: "jeu", re: /\bjeu\b|\bjeux\b|jouer|snake|morpion|tetris|pong|puzzle|plateforme|arcade|shooter|memory|pendu|labyrinthe|\bcourses?\b/i,
+    regles: "Canvas redimensionné pour écrans HiDPI ; boucle requestAnimationFrame avec delta-time plafonné (dt ≤ 0,05 s) ; clavier ET boutons tactiles à l’écran sur mobile ; empêche le défilement de la page avec les flèches et la barre d’espace (preventDefault) ; écran titre, pause (P / Échap), game over, rejouer ; score + meilleur score (localStorage sous try/catch) ; difficulté progressive ; petits sons WebAudio avec bouton muet (AudioContext créé au premier clic).",
+    idees: [["🏆 Niveaux", "Ajoute des niveaux de difficulté croissante avec un écran de passage de niveau."], ["💥 Effets", "Ajoute des effets visuels (particules, secousse d'écran) lors des événements importants."]] },
+  { id: "quiz", titre: "quiz", re: /quiz|qcm|questionnaire|culture générale|devinette/i,
+    regles: "15 à 20 questions variées mélangées au hasard, 4 choix, retour immédiat avec une courte explication, barre de progression, score final avec message selon le résultat, bouton rejouer, chrono optionnel.",
+    idees: [["📚 Catégories", "Ajoute un choix de catégories et de difficulté avant de commencer."], ["⏱️ Chrono", "Ajoute un chrono par question avec bonus de rapidité."]] },
+  { id: "outil", titre: "calculateur", re: /calculat|convertis|convertisseur|simulateur|\bimc\b|devis|prêt|pourcentage|calcul/i,
+    regles: "Formules exactes, vérifiées mentalement sur un exemple ; champs numériques validés avec valeurs par défaut réalistes ; accepte virgule et point décimal ; aucune division par zéro ; résultat mis en avant avec bouton « Copier » ; explication courte de la formule.",
+    idees: [["📋 Historique", "Ajoute un historique des derniers calculs (gardé en localStorage sous try/catch)."], ["🖨️ Imprimer", "Ajoute un bouton pour imprimer proprement le résultat."]] },
+  { id: "suivi", titre: "suivi / gestion", re: /to-?do|tâches|taches|suivi|tracker|planning|agenda|habitude|carnet|inventaire|stock|gestion|budget|\bnotes?\b|liste de/i,
+    regles: "Ajout, modification, suppression, recherche et filtres ; sauvegarde localStorage (try/catch) avec export / import JSON ; états vides explicites ; confirmation avant suppression ; tri ; totaux ou statistiques utiles en haut de page.",
+    idees: [["📊 Statistiques", "Ajoute un petit tableau de bord avec statistiques et un graphique simple en SVG."], ["📤 Export", "Ajoute l'export et l'import des données en JSON."]] },
+  { id: "musique", titre: "musique", re: /piano|synthé|synthe|musique|rythme|batterie|drum|instrument|métronome|metronome|beat/i,
+    regles: "WebAudio : crée l’AudioContext au premier clic ou à la première touche et appelle resume() ; enveloppes courtes (attaque/relâche) pour éviter les claquements ; clavier physique + souris + tactile ; retour visuel sur les touches ; réglage du volume.",
+    idees: [["🎛️ Effets", "Ajoute des réglages de timbre et un effet d'écho."], ["⏺️ Enregistrer", "Ajoute l'enregistrement puis la lecture de ce qui est joué."]] },
+  { id: "vitrine", titre: "site vitrine", re: /\bsite\b|vitrine|landing|portfolio|boutique|restaurant|entreprise|association|page d'accueil/i,
+    regles: "Sections claires (en-tête, présentation, services ou produits, atouts, contact), navigation fluide, design cohérent, boutons d’appel à l’action bien visibles, formulaire de contact en mailto:, aucun faux chiffre ni faux avis, textes plausibles en français, SVG ou emoji pour l’imagerie.",
+    idees: [["💬 Avis", "Ajoute une section de questions fréquentes dépliables."], ["📍 Contact", "Ajoute une section contact complète avec boutons appeler et écrire."]] },
+  { id: "generateur", titre: "générateur", re: /générateur|generateur|aléatoire|aleatoire|tirage|\broue\b|mot de passe|(?:^|[\s,.;:!?'])dés?(?=$|[\s,.;:!?'])/i,
+    regles: "Bouton générer / régénérer, copier le résultat, historique des derniers tirages, vrai hasard (crypto.getRandomValues quand la sécurité compte), options réglables.",
+    idees: [["⭐ Favoris", "Ajoute des favoris gardés en localStorage sous try/catch."], ["🎚️ Options", "Ajoute plus d'options de réglage de la génération."]] },
+  { id: "dessin", titre: "dessin", re: /dessin|dessiner|peinture|pixel art|éditeur d'image|tableau blanc/i,
+    regles: "Pointer events (souris, tactile, stylet) ; annuler / refaire ; couleurs et épaisseurs ; effacer avec confirmation ; canvas net sur écran HiDPI ; touch-action: none sur le canvas.",
+    idees: [["🖼️ Calques", "Ajoute une gomme, un pot de peinture et une palette de couleurs étendue."], ["↩️ Annuler", "Ajoute annuler / refaire sur plusieurs niveaux."]] },
+  { id: "data_viz", titre: "tableau de bord / data", re: /dashboard|tableau de bord|graphique|statistique|analytique|kpi|csv|données/i,
+    regles: "Indicateurs clés (KPI) clairs en haut, graphiques SVG responsives avec info-bulles au survol/clic, filtres dynamiques, import/export CSV ou JSON, jeu de données de démonstration prêt dès l'ouverture.",
+    idees: [["📂 Import CSV", "Ajoute l'import d'un fichier CSV local pour alimenter les graphiques."], ["📈 Comparaison", "Ajoute un mode comparaison période actuelle vs période précédente."]] },
+  { id: "chronometre", titre: "minuteur / pomodoro", re: /pomodoro|minuteur|chronomètre|chronometre|compte à rebours|timer|réveil/i,
+    regles: "Démarrer, pause, réinitialiser ; préréglages rapides ; affichage grand format lisible de loin ; alerte visuelle et sonore WebAudio douce en fin de cycle ; suivi des sessions complétées.",
+    idees: [["🍅 Cycles auto", "Ajoute l'enchaînement automatique travail / pause courte / pause longue."], ["🔔 Sons", "Ajoute plusieurs choix de sonnerie WebAudio."]] }
+];
+
+var IDEES_GENERALES = [
+  ["🎨 Plus joli", "Améliore le design : typographie, espacements, couleurs harmonieuses, animations douces, sans rien casser."],
+  ["📱 Mobile", "Optimise pour téléphone : grands boutons tactiles, mise en page adaptée, aucun débordement horizontal."],
+  ["🌙 Mode sombre", "Ajoute un bouton pour basculer entre mode clair et mode sombre, mémorisé (try/catch)."],
+  ["🔊 Sons", "Ajoute de petits sons WebAudio discrets avec un bouton pour couper le son."],
+  ["💾 Sauvegarde", "Ajoute la sauvegarde automatique locale (localStorage sous try/catch) et un bouton pour tout réinitialiser."],
+  ["➕ Plus de contenu", "Double la quantité de contenu (données, niveaux, questions…) avec des entrées variées et de qualité."],
+  ["🐞 Vérifier", "Relis tout le code, corrige les bugs et les cas limites, améliore la robustesse sans changer l'apparence."]
+];
+
+function trouverRecettes(texte) {
+  var t = String(texte || "");
+  var trouvees = [];
+  for (var i = 0; i < RECETTES.length && trouvees.length < 2; i++) {
+    if (RECETTES[i].re.test(t)) trouvees.push(RECETTES[i]);
+  }
+  return trouvees;
+}
+
+function buildSystemPrompt(langSpec, demande) {
+  if (!langSpec || langSpec.isHtml) {
+    var presetKey = $("style-preset").value;
+    var styleHint = STYLE_PRESETS[presetKey] || STYLE_PRESETS.auto;
+    var extra = "";
+    var recs = trouverRecettes(demande);
+    if (recs.length) {
+      extra += "\nRECETTE SPÉCIFIQUE (" + recs.map(function(r) { return r.titre; }).join(" + ") + ") :\n" + recs.map(function(r) { return r.regles; }).join("\n");
+    }
+    var rapide = $("mode-rapide");
+    if (rapide && rapide.checked) {
+      extra += "\nMODE RAPIDE : fichier compact de 250 lignes maximum, fonctions essentielles seulement, CSS concis.";
+    }
+    return SYS_HTML + "\nDIRECTION VISUELLE : " + styleHint + extra;
+  }
+  return [
+    "Tu es un ingénieur logiciel senior expert en " + langSpec.label + ".",
+    "Tu ne produis QUE du code " + langSpec.label + " pur, propre, idiomatique et exécutable (fichier " + langSpec.defaultName + "), sans aucun texte explicatif avant ou après et sans blocs markdown ```.",
+    "RÈGLES DE QUALITÉ :",
+    "1. Code COMPLET et fonctionnel : aucun placeholder, aucun « TODO » vide, aucune ellipse « ... » ni fonction non définie.",
+    "2. Ajoute une en-tête de commentaire avec « Vince Prod 73 » et un point d'entrée clair (main / CLI / exemples d'usage).",
+    "3. Gère proprement les entrées invalides, les erreurs et les cas limites.",
+    "4. Utilise des commentaires clairs en français et des noms explicites."
+  ].join("\n");
+}
+
+var EX = [
+  "Un dictionnaire ludique pour enfants avec une blague de temps en temps",
+  "Un jeu de Snake rétro avec score et vitesse croissante",
+  "Un quiz de culture générale avec score et chrono",
+  "Un piano / synthétiseur musical jouable au clavier",
+  "Un suivi de budget mensuel avec graphique",
+  "Un jeu de morpion contre une IA imbattable",
+  "Un générateur de mots de passe sécurisés",
+  "Un script Python d'organisation et renommage de fichiers",
+  "Un tableau de bord de dépenses avec graphiques SVG et export CSV",
+  "Un minuteur Pomodoro avec cycles, sons et historique de sessions"
+];
+
+var SONDE = '<scr' + 'ipt>(function(){function s(m){try{parent.postMessage({hdq:1,m:String(m)},"*")}catch(e){}}' +
+  'function shim(n){try{window[n].getItem("__t")}catch(e){var d={};var st={getItem:function(k){return Object.prototype.hasOwnProperty.call(d,k)?d[k]:null},setItem:function(k,v){d[k]=String(v)},removeItem:function(k){delete d[k]},clear:function(){d={}},key:function(i){return Object.keys(d)[i]||null}};Object.defineProperty(st,"length",{get:function(){return Object.keys(d).length}});try{Object.defineProperty(window,n,{value:st,configurable:true})}catch(e2){}}}' +
+  'shim("localStorage");shim("sessionStorage");' +
+  'addEventListener("error",function(e){var m=e.message||"erreur";if(/^Script error/.test(m)||/ResizeObserver/.test(m))return;s(m+" (ligne "+(e.lineno||"?")+")")});' +
+  'addEventListener("unhandledrejection",function(e){s("Promesse rejetée : "+((e.reason&&e.reason.message)||e.reason))});' +
+  'var origErr=console.error;console.error=function(){try{var args=[];for(var i=0;i<arguments.length;i++){var a=arguments[i];if(a&&a.message)args.push(String(a.message));else if(typeof a==="object"){try{args.push(JSON.stringify(a))}catch(x){args.push(String(a))}}else args.push(String(a))}if(args.length)s("Console.error : "+args.join(" "))}catch(e3){}if(origErr)origErr.apply(console,arguments)}})()<\/script>';
+
+var codeContent = "", activeLang = "html", hist = [], errs = [], busy = false, ctrl = null, ongletActif = "vide", derniersResultatsOSS = [];
+var extractedParts = { htmlOnly: "", css: "", js: "" };
+var autoTimer = null, derniereDemandeCreee = "", currentViewport = "desktop";
+var $ = function(i) { return document.getElementById(i); };
+
+function peuplerLangages() {
+  var sel = $("lang-select");
+  sel.innerHTML = "";
+  LANGUAGES.forEach(function(lg) {
+    var opt = document.createElement("option");
+    opt.value = lg.id;
+    opt.textContent = lg.label + " (" + lg.ext + ")";
+    sel.appendChild(opt);
+  });
+  sel.value = activeLang;
+}
+peuplerLangages();
+
+function majLangageUI() {
+  var lg = getLangSpec($("lang-select").value);
+  $("lang-ext-badge").textContent = lg.ext;
+  $("dl").textContent = "Télécharger " + lg.ext;
+  $("style-preset").disabled = !lg.isHtml;
+  $("editor-hint").textContent = lg.isHtml
+    ? "Édition directe du code HTML (les modifications mettent à jour l'aperçu et l'extraction)"
+    : "Édition directe du code " + lg.label + " (" + lg.defaultName + ")";
+  $("extract-info").innerHTML = lg.isHtml
+    ? "Isole automatiquement la structure HTML (reliée à <code>style.css</code> et <code>app.js</code>), le CSS et le JavaScript."
+    : "Le langage actif est <strong>" + escapeHtml(lg.label) + "</strong>. L'extraction HTML/CSS/JS s'applique aux projets HTML/Web.";
+  if (!lg.isHtml && ongletActif === "ap") {
+    onglet(codeContent ? "code" : "vide");
+  }
+}
+
+$("lang-select").addEventListener("change", function() {
+  activeLang = $("lang-select").value;
+  majLangageUI();
+  maj();
+});
+
+$("style-preset").addEventListener("change", function() {
+  var lg = getLangSpec(activeLang);
+  if (lg.isHtml) {
+    etat("Style « " + $("style-preset").options[$("style-preset").selectedIndex].text.replace(/^Style\s*:\s*/i, "") + " » sélectionné pour les prochaines générations HTML.", "ok");
+  }
+});
+
+$("py-quick-btn").addEventListener("click", function() {
+  activeLang = "python";
+  $("lang-select").value = "python";
+  majLangageUI();
+  maj();
+  if (!$("q").value.trim()) {
+    $("q").value = "Un script Python complet, interactif et bien structuré avec menu CLI et gestion d'erreurs";
+    majCompteurCaracteres();
+  }
+  if (autoTimer) clearTimeout(autoTimer);
+  lance("go");
+});
+
+function majFournisseur() {
+  var prov = $("provider").value;
+  var sel = $("model");
+  var ep = $("endpoint-url");
+  var kw = $("key-wrap");
+  sel.innerHTML = "";
+  $("model-custom").value = "";
+  $("model-custom").classList.toggle("hide", prov === "auto");
+
+  if (prov === "auto") {
+    ep.classList.add("hide");
+    ep.value = "";
+    kw.classList.remove("hide");
+    $("apikey").placeholder = "Clé Pollinations (optionnelle — enter.pollinations.ai)";
+    sel.innerHTML = '<option value="openai" selected>IA Code Web</option><option value="qwen-coder">Qwen Coder</option><option value="mistral">Mistral</option>';
+  } else if (prov === "gemini" || prov === "groq") {
+    ep.classList.remove("hide");
+    ep.value = ENGINE_URLS[prov];
+    kw.classList.remove("hide");
+    if (prov === "gemini") {
+      $("apikey").placeholder = "Clé Gemini gratuite (aistudio.google.com/apikey)";
+      sel.innerHTML = '<option value="gemini-3.8-flash" selected>gemini-3.8-flash</option><option value="gemini-3.6-flash">gemini-3.6-flash</option><option value="gemini-3-flash-preview">gemini-3-flash-preview</option>';
+    } else {
+      $("apikey").placeholder = "Clé Groq gratuite (console.groq.com/keys)";
+      sel.innerHTML = '<option value="llama-3.3-70b-versatile" selected>llama-3.3-70b-versatile</option>';
+    }
+  } else if (prov === "openai") {
+    ep.classList.add("hide");
+    ep.value = "";
+    kw.classList.remove("hide");
+    $("apikey").placeholder = "Clé API OpenAI (sk-...)";
+    sel.innerHTML = '<option value="gpt-4o" selected>gpt-4o</option><option value="gpt-4o-mini">gpt-4o-mini</option><option value="o3-mini">o3-mini</option>';
+  } else {
+    ep.classList.remove("hide");
+    kw.classList.remove("hide");
+    $("apikey").placeholder = "Clé API (optionnelle en local)";
+    ep.value = ENGINE_URLS[prov] || "http://localhost:11434/v1/chat/completions";
+    sel.innerHTML =
+      '<option value="qwen3:8b" selected>qwen3:8b (Code &amp; Multi-langages)</option>' +
+      '<option value="qwen3-coder-next">qwen3-coder-next</option>' +
+      '<option value="deepseek-v4">deepseek-v4</option>' +
+      '<option value="devstral">devstral (Agent code)</option>' +
+      '<option value="llama3.2">llama3.2</option>' +
+      '<option value="mistral">mistral</option>';
+  }
+  chargerCle();
+}
+function cleStockageActuelle() {
+  var p = $("provider").value;
+  if (p === "auto") return STORAGE_KEY_POLLI;
+  if (p === "gemini") return STORAGE_KEY_GEMINI;
+  if (p === "groq") return STORAGE_KEY_GROQ;
+  return STORAGE_KEY_NAME;
+}
+function chargerCle() {
+  try { $("apikey").value = localStorage.getItem(cleStockageActuelle()) || ""; }
+  catch (e) { $("apikey").value = ""; }
+}
+$("provider").addEventListener("change", majFournisseur);
+majFournisseur();
+majLangageUI();
+
+try {
+  $("apikey").addEventListener("input", function() {
+    try { localStorage.setItem(cleStockageActuelle(), $("apikey").value.trim()); } catch (e) {}
+  });
+  $("clear-key").addEventListener("click", function() {
+    $("apikey").value = "";
+    try { localStorage.removeItem(cleStockageActuelle()); } catch (e) {}
+    etat("Clé API effacée.", "ok");
+  });
+} catch (e) {}
+
+EX.forEach(function(t) {
+  var b = document.createElement("button");
+  b.type = "button";
+  b.className = "sec";
+  b.textContent = t;
+  b.onclick = function() {
+    $("q").value = t;
+    majCompteurCaracteres();
+    if (/python/i.test(t) && $("lang-select").value === "html") {
+      activeLang = "python";
+      $("lang-select").value = "python";
+      majLangageUI();
+    } else if (!/python/i.test(t) && $("lang-select").value === "python") {
+      activeLang = "html";
+      $("lang-select").value = "html";
+      majLangageUI();
+    }
+    if (autoTimer) clearTimeout(autoTimer);
+    lance("go");
+  };
+  $("ex").appendChild(b);
+});
+
+function majIdees() {
+  var box = $("idees");
+  if (!box) return;
+  var lg = getLangSpec(activeLang);
+  var visible = Boolean(codeContent && lg.isHtml);
+  box.classList.toggle("hide", !visible);
+  if (!visible) { cleIdees = ""; return; }
+  var cle = demandeInitiale || "general";
+  if (cle === cleIdees) return;
+  cleIdees = cle;
+  box.innerHTML = "";
+  var liste = [];
+  trouverRecettes(demandeInitiale).forEach(function(r) { liste = liste.concat(r.idees); });
+  liste = liste.concat(IDEES_GENERALES).slice(0, 9);
+  liste.forEach(function(idee) {
+    var bt = document.createElement("button");
+    bt.type = "button";
+    bt.className = "sec small";
+    bt.textContent = idee[0];
+    bt.title = idee[1];
+    bt.onclick = function() {
+      if (busy) return;
+      $("q").value = idee[1];
+      majCompteurCaracteres();
+      if (autoTimer) clearTimeout(autoTimer);
+      lance("go");
+    };
+    box.appendChild(bt);
+  });
+}
+
+function majCompteurCaracteres() {
+  var n = ($("q").value || "").length;
+  $("char-count").textContent = n + (n > 1 ? " car." : " car.");
+}
+
+$("q").addEventListener("input", function() {
+  majCompteurCaracteres();
+  if (autoTimer) clearTimeout(autoTimer);
+  if (!$("auto-run").checked) return;
+  var val = $("q").value.trim();
+  if (val.length >= 12 && val !== derniereDemandeCreee && !busy && !codeContent) {
+    etat("Saisie détectée — lancement IA dans 4 s (Échap pour annuler)…", "live");
+    autoTimer = setTimeout(function() {
+      if ($("q").value.trim() === val && !busy) {
+        lance("go");
+      }
+    }, 4000);
+  }
+});
+
+$("q").addEventListener("keydown", function(e) {
+  if (e.key === "Escape" && autoTimer) {
+    clearTimeout(autoTimer);
+    autoTimer = null;
+    etat("Lancement automatique annulé.");
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    if (autoTimer) clearTimeout(autoTimer);
+    lance("go");
+  }
+});
+
+function etat(t, type) {
+  $("etat").textContent = t;
+  var cls = "etat";
+  if (type === "err") cls += " err";
+  else if (type === "ok") cls += " ok";
+  else if (type === "live") cls += " live";
+  $("etat").className = cls;
+}
+function ossEtat(t, isErr) {
+  $("oss-etat").textContent = t;
+  $("oss-etat").className = "etat" + (isErr ? " err" : "");
+}
+function sansFence(t, langSpec) {
+  var s = String(t || "").trim();
+  var fencePattern = langSpec && langSpec.fence
+    ? new RegExp("^```(?:[a-zA-Z0-9_+#.-]+)?\\s*\\n?", "i")
+    : /^```[a-zA-Z0-9_+#.-]*\s*\n?/i;
+  s = s.replace(/<think>[\s\S]*?<\/think>/gi, "").replace(/<think>[\s\S]*$/i, "").trim();
+  s = s.replace(fencePattern, "");
+  s = s.replace(/\n?```\s*$/, "");
+  return s;
+}
+function nettoie(t, langSpec) {
+  t = sansFence(t, langSpec);
+  if (!langSpec || langSpec.isHtml) {
+    var i = t.search(/<!DOCTYPE|<html/i);
+    if (i > 0) {
+      var avantDoctype = t.slice(0, i);
+      if (!/^\s*(<!--[\s\S]*?-->\s*)+$/.test(avantDoctype)) t = t.slice(i);
+    }
+    var fin = t.toLowerCase().lastIndexOf("</html>");
+    if (fin > -1 && fin + 7 < t.length) t = t.slice(0, fin + 7);
+    return t;
+  }
+  return t;
+}
+function sonde(t) {
+  var f = function(m) { return m + SONDE; };
+  if (/<head(?=[\s>])[^>]*>/i.test(t)) return t.replace(/<head(?=[\s>])[^>]*>/i, f);
+  if (/<html[^>]*>/i.test(t)) return t.replace(/<html[^>]*>/i, f);
+  return SONDE + t;
+}
+
+function verifierEtReparerCode(codeStr, langSpec) {
+  var lg = langSpec || getLangSpec($("lang-select").value);
+  var out = String(codeStr || "").trim();
+  var reparations = [];
+  if (!out) return { code: "", reparations: reparations };
+
+  if (lg.isHtml) {
+    var finHtml = out.toLowerCase().lastIndexOf("</html>");
+    if (finHtml > -1 && finHtml + 7 < out.length) {
+      out = out.slice(0, finHtml + 7);
+      reparations.push("Texte parasite après </html> retiré");
+    }
+    if (!/<!DOCTYPE html>/i.test(out)) {
+      out = "<!DOCTYPE html>\n" + out;
+      reparations.push("DOCTYPE ajouté");
+    }
+    if (!/<html\b/i.test(out)) {
+      out = out.replace(/<!DOCTYPE html>/i, '<!DOCTYPE html>\n<html lang="fr">');
+      reparations.push("Balise <html> ajoutée");
+    }
+    if (!/<body\b/i.test(out) && /<\/head>/i.test(out)) {
+      out = out.replace(/<\/head>/i, "</head>\n<body>");
+      reparations.push("Balise <body> ajoutée");
+    }
+    if (!/<\/body>/i.test(out)) {
+      out += "\n</body>";
+      reparations.push("Balise </body> fermée");
+    }
+    if (!/<\/html>\s*$/i.test(out)) {
+      out += "\n</html>";
+      reparations.push("Balise </html> fermée");
+    }
+    var blocs = extraireBlocsCode(out);
+    if (blocs.js) {
+      try {
+        new Function(blocs.js);
+      } catch (syntaxErr) {
+        reparations.push("Alerte syntaxe JS : " + syntaxErr.message);
+      }
+    }
+  } else {
+    var opens = (out.match(/\{/g) || []).length;
+    var closes = (out.match(/\}/g) || []).length;
+    if (opens > closes && lg.id !== "python" && lg.id !== "haskell" && lg.id !== "yaml" && lg.id !== "markdown" && lg.id !== "sql") {
+      reparations.push("Accolades non équilibrées (" + opens + " '{' pour " + closes + " '}')");
+    }
+    if (lg.id === "python" && !/def\s+\w+\s*\(/.test(out) && out.length > 40) {
+      reparations.push("Script Python sans fonction nommée détectée");
+    }
+  }
+  return { code: out, reparations: reparations };
+}
+
+function extraireBlocsCode(sourceHtml) {
+  var src = String(sourceHtml || "");
+  if (!src.trim()) return { htmlOnly: "", css: "", js: "" };
+  var cssMatches = [];
+  var jsMatches = [];
+
+  var sansStyle = src.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, function(_, contenu) {
+    if (contenu && contenu.trim()) cssMatches.push(contenu.trim());
+    return '<link rel="stylesheet" href="style.css">';
+  });
+
+  var htmlPropre = sansStyle.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi, function(tout, attrs, contenu) {
+    var typeM = attrs.match(/\btype\s*=\s*["']?([^"'\s>]+)/i);
+    if (typeM && !/^(text\/javascript|application\/javascript)$/i.test(typeM[1])) return tout;
+    if (/\bsrc\s*=/i.test(attrs)) return '<script' + attrs + '></' + 'script>';
+    if (contenu && contenu.trim()) jsMatches.push(contenu.trim());
+    return '<script src="app.js"></' + 'script>';
+  });
+
+  return {
+    htmlOnly: htmlPropre.trim(),
+    css: cssMatches.join("\n\n/* --- Bloc CSS suivant --- */\n\n"),
+    js: jsMatches.join("\n\n// --- Bloc JS suivant ---\n\n")
+  };
+}
+
+function analyserCodeHtml(code) {
+  var problemes = [];
+  var blocs = extraireBlocsCode(code);
+  var js = blocs.js || "";
+  if (!js) return problemes;
+  var vus = {}, m;
+  var reId = /getElementById\(\s*["']([^"']+)["']\s*\)/g;
+  while ((m = reId.exec(js)) !== null) {
+    var id = m[1];
+    if (vus[id]) continue;
+    vus[id] = true;
+    var esc = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    var existe = new RegExp("\\bid\\s*[=:]\\s*[\\\\]?[\"']?" + esc + "[\\\\]?[\"'\\s>]", "i").test(code) ||
+                 new RegExp("[\"']id[\"']\\s*,\\s*[\"']" + esc + "[\"']").test(code);
+    if (!existe) problemes.push("L'élément d'identifiant « " + id + " » est utilisé dans le script (getElementById) mais n'existe pas dans le HTML.");
+  }
+  var interdits = { alert: 1, confirm: 1, prompt: 1, "this": 1, event: 1, location: 1, history: 1, document: 1, window: 1, console: 1, Math: 1, JSON: 1, parseInt: 1, parseFloat: 1, print: 1, "return": 1, "if": 1 };
+  var reOn = /\bon(?:click|change|input|submit|keydown|keyup|keypress|mousedown|mouseup|touchstart|focus|blur)\s*=\s*["']\s*(?:return\s+)?([A-Za-z_$][\w$]*)\s*\(/gi;
+  var vusFn = {};
+  var htmlSeul = blocs.htmlOnly || "";
+  while ((m = reOn.exec(htmlSeul)) !== null) {
+    var fn = m[1];
+    if (vusFn[fn] || interdits[fn]) continue;
+    vusFn[fn] = true;
+    var reDef = new RegExp("function\\s+" + fn + "\\b|\\b" + fn + "\\s*=[^=]|(?:var|let|const)\\s+" + fn + "\\b|window\\." + fn + "\\b|[,{]\\s*" + fn + "\\s*[,}]");
+    if (!reDef.test(js)) problemes.push("La fonction « " + fn + "() » est appelée dans le HTML (attribut on…) mais n'existe pas dans le script.");
+  }
+  return problemes.slice(0, 5);
+}
+
+function majExtraction() {
+  var lg = getLangSpec(activeLang);
+  var isHtmlDoc = lg.isHtml && Boolean(codeContent && codeContent.trim());
+  extractedParts = isHtmlDoc ? extraireBlocsCode(codeContent) : { htmlOnly: "", css: "", js: "" };
+
+  $("out-html").textContent = extractedParts.htmlOnly || (lg.isHtml ? "Aucun code généré pour le moment." : "Extraction HTML inactive en mode " + lg.label + ".");
+  $("out-css").textContent = extractedParts.css || "Aucun style CSS extrait.";
+  $("out-js").textContent = extractedParts.js || "Aucun script JS extrait.";
+
+  $("stat-html").textContent = extractedParts.htmlOnly.length + " car.";
+  $("stat-css").textContent = extractedParts.css.length + " car.";
+  $("stat-js").textContent = extractedParts.js.length + " car.";
+
+  $("cp-html").disabled = !extractedParts.htmlOnly;
+  $("dl-html").disabled = !extractedParts.htmlOnly;
+  $("cp-css").disabled = !extractedParts.css;
+  $("dl-css").disabled = !extractedParts.css;
+  $("cp-js").disabled = !extractedParts.js;
+  $("dl-js").disabled = !extractedParts.js;
+  $("dl-all-parts").disabled = !isHtmlDoc;
+}
+
+function telechargerFichier(nom, contenu, mime) {
+  if (!contenu) return;
+  var blob = new Blob([contenu], { type: mime || "text/plain;charset=utf-8" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = nom;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function() { URL.revokeObjectURL(a.href); }, 500);
+}
+
+function copierTexte(txt, msgOk) {
+  if (!txt) {
+    etat("Rien à copier pour le moment.", "err");
+    return;
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(
+      function() { etat(msgOk, "ok"); },
+      function() { etat("Copie refusée par le navigateur : sélectionne le texte manuellement.", "err"); }
+    );
+  } else {
+    etat("Presse-papiers indisponible ici : sélectionne le texte manuellement.", "err");
+  }
+}
+
+function maj() {
+  var lg = getLangSpec(activeLang);
+  $("rev").textContent = errs.length ? "Corriger (" + errs.length + ")" : "Relire & corriger";
+  $("rev").disabled = busy || !codeContent;
+  $("undo").disabled = busy || !hist.length;
+  $("go").disabled = busy;
+  $("py-quick-btn").disabled = busy;
+  $("neuf").disabled = busy;
+  $("save-proj-btn").disabled = busy || !codeContent;
+  $("stop-btn").classList.toggle("hide", !busy);
+  $("tp").disabled = !lg.isHtml;
+  $("vp-desk").disabled = !lg.isHtml;
+  $("vp-tab").disabled = !lg.isHtml;
+  $("vp-mob").disabled = !lg.isHtml;
+  majIdees();
+}
+
+function appliquerViewport() {
+  var wrap = $("ap-wrap");
+  wrap.classList.remove("vp-tablet", "vp-mobile");
+  if (currentViewport === "tablet") wrap.classList.add("vp-tablet");
+  if (currentViewport === "mobile") wrap.classList.add("vp-mobile");
+  ["vp-desk", "vp-tab", "vp-mob"].forEach(function(id) {
+    var btn = $(id);
+    btn.classList.toggle("active-vp", btn.getAttribute("data-vp") === currentViewport);
+  });
+}
+
+["vp-desk", "vp-tab", "vp-mob"].forEach(function(id) {
+  $(id).addEventListener("click", function() {
+    currentViewport = $(id).getAttribute("data-vp");
+    appliquerViewport();
+  });
+});
+
+function montre(t, options) {
+  options = options || {};
+  codeContent = t;
+  var lg = getLangSpec(activeLang);
+  if (!options.skipEditorSync) {
+    $("code-editor").value = t;
+  }
+  if (t && lg.isHtml) {
+    $("ap").srcdoc = sonde(t);
+  } else {
+    $("ap").removeAttribute("srcdoc");
+  }
+  if (t) {
+    $("dl").classList.remove("hide");
+  } else {
+    $("dl").classList.add("hide");
+  }
+  if (!options.keepErrors) {
+    errs = [];
+  }
+  maj();
+  majExtraction();
+  if (ongletActif !== "oss" && ongletActif !== "extract" && ongletActif !== "import" && ongletActif !== "diag" && ongletActif !== "proj" && ongletActif !== "code") {
+    onglet(t ? (lg.isHtml ? "ap" : "code") : "vide");
+  }
+}
+
+function onglet(nom) {
+  var lg = getLangSpec(activeLang);
+  if (nom === "ap" && !lg.isHtml) nom = codeContent ? "code" : "vide";
+  ongletActif = nom;
+  $("tp").setAttribute("aria-selected", nom === "ap" || nom === "vide" ? "true" : "false");
+  $("tc").setAttribute("aria-selected", nom === "code" ? "true" : "false");
+  $("timport").setAttribute("aria-selected", nom === "import" ? "true" : "false");
+  $("textract").setAttribute("aria-selected", nom === "extract" ? "true" : "false");
+  $("toss").setAttribute("aria-selected", nom === "oss" ? "true" : "false");
+  $("tproj").setAttribute("aria-selected", nom === "proj" ? "true" : "false");
+  $("tdiag").setAttribute("aria-selected", nom === "diag" ? "true" : "false");
+
+  ["ap-wrap", "code-wrap", "import", "extract", "oss", "proj", "diag", "vide"].forEach(function(id) {
+    $(id).classList.add("hide");
+  });
+
+  if (nom === "code") $("code-wrap").classList.remove("hide");
+  else if (nom === "import") $("import").classList.remove("hide");
+  else if (nom === "extract") $("extract").classList.remove("hide");
+  else if (nom === "oss") $("oss").classList.remove("hide");
+  else if (nom === "proj") {
+    $("proj").classList.remove("hide");
+    rendreProjets();
+  } else if (nom === "diag") $("diag").classList.remove("hide");
+  else if (codeContent && lg.isHtml) $("ap-wrap").classList.remove("hide");
+  else $("vide").classList.remove("hide");
+}
+
+$("tp").onclick = function() {
+  var lg = getLangSpec(activeLang);
+  onglet(codeContent && lg.isHtml ? "ap" : "vide");
+};
+$("tc").onclick = function() {
+  $("code-editor").value = codeContent;
+  onglet("code");
+};
+$("timport").onclick = function() { onglet("import"); };
+$("textract").onclick = function() { onglet("extract"); };
+
+// ==========================================
+// IMPORTATION DE FICHIERS EXISTANTS
+// ==========================================
+var importedFileName = "";
+var detectedImportLang = "html";
+
+function detecterLangageFichier(fileName, content) {
+  var name = String(fileName || "").toLowerCase();
+  var extMatch = name.match(/(\.[a-z0-9_+#-]+)$/);
+  var ext = extMatch ? extMatch[1] : "";
+  var extMap = {
+    ".htm": "html", ".html": "html",
+    ".py": "python",
+    ".js": "javascript", ".mjs": "javascript", ".jsx": "javascript",
+    ".ts": "typescript", ".tsx": "typescript",
+    ".c": "c", ".h": "c",
+    ".cpp": "cpp", ".hpp": "cpp", ".cc": "cpp",
+    ".cs": "csharp",
+    ".rs": "rust",
+    ".go": "go",
+    ".java": "java",
+    ".kt": "kotlin",
+    ".swift": "swift",
+    ".php": "php",
+    ".rb": "ruby",
+    ".sql": "sql",
+    ".sh": "bash", ".bash": "bash",
+    ".ps1": "powershell",
+    ".lua": "lua",
+    ".dart": "dart",
+    ".scala": "scala",
+    ".hs": "haskell",
+    ".r": "r",
+    ".jl": "julia",
+    ".pl": "perl",
+    ".ex": "elixir", ".exs": "elixir",
+    ".clj": "clojure",
+    ".asm": "assembly", ".s": "assembly",
+    ".css": "css",
+    ".json": "json",
+    ".yaml": "yaml", ".yml": "yaml",
+    ".md": "markdown"
+  };
+  if (ext && extMap[ext]) return extMap[ext];
+  var src = String(content || "").trim();
+  if (/<!DOCTYPE\s+html|<html/i.test(src)) return "html";
+  if (/^\s*(import\s+\w+|from\s+\w+\s+import|def\s+\w+\s*\()/m.test(src)) return "python";
+  if (/^\s*#include\s*</m.test(src)) return /(std::|iostream|vector|string)/.test(src) ? "cpp" : "c";
+  if (/^\s*package\s+main/m.test(src) && /func\s+main\s*\(/.test(src)) return "go";
+  if (/^\s*fn\s+main\s*\(\s*\)/m.test(src)) return "rust";
+  if (/^\s*(SELECT|INSERT|UPDATE|DELETE|CREATE\s+TABLE)/im.test(src)) return "sql";
+  if (src.charAt(0) === "{" || src.charAt(0) === "[") {
+    try { JSON.parse(src); return "json"; } catch (e) {}
+  }
+  return $("lang-select").value || "html";
+}
+
+function majEtatZoneImport(fileName) {
+  var txt = $("import-paste").value;
+  var len = txt.length;
+  $("import-char-count").textContent = len + " car.";
+  $("import-load-btn").disabled = !txt.trim();
+  if (fileName !== undefined) importedFileName = fileName;
+  if (txt.trim()) {
+    detectedImportLang = detecterLangageFichier(importedFileName, txt);
+    var lg = getLangSpec(detectedImportLang);
+    $("import-meta").classList.remove("hide");
+    $("import-file-info").textContent = (importedFileName ? "Fichier : " + importedFileName + " • " : "Texte collé • ") + lg.label;
+    $("import-lang-badge").textContent = lg.ext;
+  } else {
+    $("import-meta").classList.add("hide");
+  }
+}
+
+function importerDansAtelier(contenu, fileName, forceLang) {
+  var brut = String(contenu || "");
+  if (!brut.trim()) {
+    etat("Le contenu à importer est vide.", "err");
+    return;
+  }
+  var langId = forceLang || detecterLangageFichier(fileName, brut);
+  var lg = getLangSpec(langId);
+  if (codeContent) hist.push(codeContent);
+  activeLang = lg.id;
+  $("lang-select").value = lg.id;
+  majLangageUI();
+  demandeInitiale = "";
+  autoFixCount = 0;
+
+  var rep = verifierEtReparerCode(brut, lg);
+  montre(rep.code);
+  onglet(lg.isHtml ? "ap" : "code");
+  var labelNom = fileName ? "« " + fileName + " »" : "le code";
+  var repNote = rep.reparations.length ? " (" + rep.reparations.join(", ") + ")" : "";
+  etat("Importation réussie de " + labelNom + " en " + lg.label + " ! Décris tes modifications à gauche ou édite le code." + repNote, "ok");
+}
+
+function lireFichierImport(file, chargerDirectement) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var contenu = String((ev && ev.target && ev.target.result) || "");
+    $("import-paste").value = contenu;
+    majEtatZoneImport(file.name);
+    if (chargerDirectement) {
+      importerDansAtelier(contenu, file.name);
+    }
+  };
+  reader.onerror = function() {
+    etat("Impossible de lire le fichier « " + file.name + " ».", "err");
+  };
+  reader.readAsText(file, "utf-8");
+}
+
+$("import-browse-btn").onclick = function() {
+  $("import-file-input").value = "";
+  $("import-file-input").click();
+};
+
+$("import-dropzone").onclick = function() {
+  $("import-file-input").value = "";
+  $("import-file-input").click();
+};
+
+$("import-dropzone").addEventListener("keydown", function(e) {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    $("import-file-input").value = "";
+    $("import-file-input").click();
+  }
+});
+
+$("import-file-input").addEventListener("change", function(e) {
+  var file = e.target.files && e.target.files[0];
+  if (file) lireFichierImport(file, true);
+});
+
+$("import-dropzone").addEventListener("dragover", function(e) {
+  e.preventDefault();
+  $("import-dropzone").classList.add("dragover");
+});
+
+$("import-dropzone").addEventListener("dragleave", function() {
+  $("import-dropzone").classList.remove("dragover");
+});
+
+$("import-dropzone").addEventListener("drop", function(e) {
+  e.preventDefault();
+  $("import-dropzone").classList.remove("dragover");
+  var files = e.dataTransfer && e.dataTransfer.files;
+  if (!files || !files.length) return;
+  if (files.length > 1) {
+    fusionnerFichiersWeb(files);
+  } else {
+    lireFichierImport(files[0], true);
+  }
+});
+
+function fusionnerFichiersWeb(fileList) {
+  var files = Array.prototype.slice.call(fileList || []);
+  if (!files.length) return;
+  var lectures = files.map(function(f) {
+    return new Promise(function(resolve) {
+      var r = new FileReader();
+      r.onload = function(ev) { resolve({ name: f.name, text: String((ev && ev.target && ev.target.result) || "") }); };
+      r.onerror = function() { resolve({ name: f.name, text: "" }); };
+      r.readAsText(f, "utf-8");
+    });
+  });
+  Promise.all(lectures).then(function(items) {
+    var htmlItem = items.find(function(it) { return /\.html?$/i.test(it.name); });
+    var cssItems = items.filter(function(it) { return /\.css$/i.test(it.name) && it.text.trim(); });
+    var jsItems = items.filter(function(it) { return /\.js$/i.test(it.name) && it.text.trim(); });
+    if (!htmlItem) {
+      lireFichierImport(files[0], true);
+      return;
+    }
+    var merged = htmlItem.text;
+    if (cssItems.length) {
+      var allCss = "<style>\n" + cssItems.map(function(c) { return "/* " + c.name + " */\n" + c.text; }).join("\n\n") + "\n</style>";
+      if (/<link[^>]+rel=["']stylesheet["'][^>]*>/i.test(merged)) {
+        merged = merged.replace(/<link[^>]+rel=["']stylesheet["'][^>]*>/i, allCss);
+      } else if (/<\/head>/i.test(merged)) {
+        merged = merged.replace(/<\/head>/i, allCss + "\n</head>");
+      } else {
+        merged = allCss + "\n" + merged;
+      }
+    }
+    if (jsItems.length) {
+      var allJs = "<scr" + "ipt>\n" + jsItems.map(function(j) { return "// " + j.name + "\n" + j.text; }).join("\n\n") + "\n</scr" + "ipt>";
+      if (/<script[^>]+src=["'][^"']+["'][^>]*>\s*<\/script>/i.test(merged)) {
+        merged = merged.replace(/<script[^>]+src=["'][^"']+["'][^>]*>\s*<\/script>/i, allJs);
+      } else if (/<\/body>/i.test(merged)) {
+        merged = merged.replace(/<\/body>/i, allJs + "\n</body>");
+      } else {
+        merged += "\n" + allJs;
+      }
+    }
+    $("import-paste").value = merged;
+    majEtatZoneImport(htmlItem.name + " (+ " + (cssItems.length + jsItems.length) + " asset(s))");
+    importerDansAtelier(merged, htmlItem.name, "html");
+  });
+}
+
+$("import-multi-btn").onclick = function() {
+  $("import-multi-input").value = "";
+  $("import-multi-input").click();
+};
+
+$("import-multi-input").addEventListener("change", function(e) {
+  if (e.target.files && e.target.files.length) {
+    fusionnerFichiersWeb(e.target.files);
+  }
+});
+
+$("import-paste").addEventListener("input", function() {
+  majEtatZoneImport();
+});
+
+$("import-clear-btn").onclick = function() {
+  $("import-paste").value = "";
+  importedFileName = "";
+  majEtatZoneImport("");
+};
+
+$("import-load-btn").onclick = function() {
+  importerDansAtelier($("import-paste").value, importedFileName, detectedImportLang);
+};
+$("toss").onclick = function() { onglet("oss"); $("oss-q").focus(); };
+$("tproj").onclick = function() { onglet("proj"); };
+$("tdiag").onclick = function() { onglet("diag"); executerTestsAuto(); };
+
+$("apply-code").onclick = function() {
+  var edited = $("code-editor").value;
+  if (!edited.trim()) {
+    etat("L'éditeur est vide.", "err");
+    return;
+  }
+  var lg = getLangSpec(activeLang);
+  if (codeContent && edited !== codeContent) hist.push(codeContent);
+  var rep = verifierEtReparerCode(edited, lg);
+  montre(rep.code);
+  onglet(lg.isHtml ? "ap" : "code");
+  etat("Modifications manuelles appliquées (" + lg.label + ") !", "ok");
+};
+
+$("format-code").onclick = function() {
+  var lg = getLangSpec(activeLang);
+  var rep = verifierEtReparerCode($("code-editor").value, lg);
+  $("code-editor").value = rep.code;
+  etat(rep.reparations.length ? "Vérification : " + rep.reparations.join(", ") : "Code vérifié.", "ok");
+};
+
+$("cp").onclick = function() { copierTexte(codeContent, "Code complet copié."); };
+$("dl").onclick = function() {
+  var lg = getLangSpec(activeLang);
+  telechargerFichier(lg.defaultName, codeContent, lg.mime);
+  etat("Fichier " + lg.defaultName + " téléchargé.", "ok");
+};
+$("cp-html").onclick = function() { copierTexte(extractedParts.htmlOnly, "Structure HTML copiée."); };
+$("dl-html").onclick = function() { telechargerFichier("index.html", extractedParts.htmlOnly, "text/html;charset=utf-8"); etat("index.html téléchargé.", "ok"); };
+$("cp-css").onclick = function() { copierTexte(extractedParts.css, "Code CSS copié."); };
+$("dl-css").onclick = function() { telechargerFichier("style.css", extractedParts.css, "text/css;charset=utf-8"); etat("style.css téléchargé.", "ok"); };
+$("cp-js").onclick = function() { copierTexte(extractedParts.js, "Code JavaScript copié."); };
+$("dl-js").onclick = function() { telechargerFichier("app.js", extractedParts.js, "application/javascript;charset=utf-8"); etat("app.js téléchargé.", "ok"); };
+$("dl-all-parts").onclick = function() {
+  if (extractedParts.htmlOnly) telechargerFichier("index.html", extractedParts.htmlOnly, "text/html;charset=utf-8");
+  if (extractedParts.css) setTimeout(function() { telechargerFichier("style.css", extractedParts.css, "text/css;charset=utf-8"); }, 150);
+  if (extractedParts.js) setTimeout(function() { telechargerFichier("app.js", extractedParts.js, "application/javascript;charset=utf-8"); }, 300);
+  etat("Export des 3 fichiers (index.html, style.css, app.js) lancé.", "ok");
+};
+
+window.addEventListener("message", function(e) {
+  var lg = getLangSpec(activeLang);
+  if (!lg.isHtml) return;
+  if (e.source !== $("ap").contentWindow || !e.data || !e.data.hdq) return;
+  var m = String(e.data.m).slice(0, 300);
+  if (errs.indexOf(m) < 0 && errs.length < 8) {
+    errs.push(m);
+    maj();
+    if (!busy && $("auto-fix-loop").checked && autoFixCount < 2) {
+      autoFixCount++;
+      etat("Erreur détectée (« " + m + " ») — auto-réparation IA " + autoFixCount + "/2 en cours…", "err");
+      setTimeout(function() { if (!busy && errs.length && $("auto-fix-loop").checked) lance("rev"); }, 500);
+    } else if (!busy) {
+      etat("Erreur détectée (« " + m + " »). Clique sur « Corriger » pour réparer.", "err");
+    }
+  }
+});
+
+$("stop-btn").onclick = function() {
+  if (ctrl) ctrl.abort();
+  etat("Génération interrompue.");
+};
+
+$("neuf").onclick = function() {
+  if (ctrl) ctrl.abort();
+  if (autoTimer) clearTimeout(autoTimer);
+  hist = [];
+  derniereDemandeCreee = "";
+  demandeInitiale = "";
+  montre("");
+  $("q").value = "";
+  majCompteurCaracteres();
+  etat("");
+};
+$("undo").onclick = function() {
+  if (busy || !hist.length) return;
+  montre(hist.pop());
+  etat("Version précédente restaurée.", "ok");
+};
+
+// ==========================================
+// SAUVEGARDE LOCALE DES PROJETS
+// ==========================================
+function chargerProjets() {
+  try {
+    var raw = localStorage.getItem(STORAGE_PROJECTS_KEY);
+    var parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function enregistrerProjets(list) {
+  try {
+    localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(list.slice(0, 20)));
+  } catch (e) {}
+  majCompteurProjets();
+}
+
+function majCompteurProjets() {
+  $("proj-count").textContent = String(chargerProjets().length);
+}
+
+function extraireTitreProjet(sourceCode, fallbackPrompt, langSpec) {
+  if (langSpec && langSpec.isHtml) {
+    var m = String(sourceCode || "").match(/<title[^>]*>([^<]+)<\/title>/i);
+    if (m && m[1] && m[1].trim()) return m[1].trim().slice(0, 60);
+  }
+  var p = String(fallbackPrompt || "Projet sans titre").trim().slice(0, 60);
+  return p || "Projet sans titre";
+}
+
+function sauvegarderProjetCourant() {
+  if (!codeContent) return;
+  var lg = getLangSpec(activeLang);
+  var liste = chargerProjets();
+  var item = {
+    id: String(Date.now()),
+    titre: extraireTitreProjet(codeContent, $("q").value, lg),
+    lang: lg.id,
+    langLabel: lg.label,
+    ext: lg.ext,
+    mime: lg.mime,
+    date: new Date().toLocaleString("fr-FR"),
+    taille: codeContent.length,
+    code: codeContent
+  };
+  liste.unshift(item);
+  enregistrerProjets(liste);
+  etat("Projet « " + item.titre + " » (" + lg.ext + ") sauvegardé localement.", "ok");
+  if (ongletActif === "proj") rendreProjets();
+}
+
+function rendreProjets() {
+  var liste = chargerProjets();
+  var box = $("proj-list");
+  box.innerHTML = "";
+  majCompteurProjets();
+  if (!liste.length) {
+    box.innerHTML = '<p class="oss-desc">Aucun projet sauvegardé pour le moment. Génère du code puis clique sur « Sauvegarder projet ».</p>';
+    return;
+  }
+  liste.forEach(function(item) {
+    var row = document.createElement("div");
+    row.className = "proj-item";
+    var badgeLang = item.langLabel || item.lang || "Code";
+    var extStr = item.ext || ".html";
+    row.innerHTML =
+      '<div class="proj-info">' +
+        '<span class="proj-title">' + escapeHtml(item.titre) + ' <span class="oss-badge">' + escapeHtml(badgeLang) + '</span></span>' +
+        '<span class="proj-meta">' + escapeHtml(item.date) + ' &bull; ' + Number(item.taille || 0).toLocaleString("fr-FR") + ' car.</span>' +
+      '</div>' +
+      '<div class="actions-row">' +
+        '<button type="button" class="small load-proj">Charger</button>' +
+        '<button type="button" class="sec small dl-proj">' + escapeHtml(extStr) + '</button>' +
+        '<button type="button" class="sec small del-proj">Supprimer</button>' +
+      '</div>';
+    row.querySelector(".load-proj").onclick = function() {
+      if (codeContent) hist.push(codeContent);
+      if (item.lang) {
+        activeLang = item.lang;
+        $("lang-select").value = item.lang;
+        majLangageUI();
+      }
+      montre(item.code);
+      var lg = getLangSpec(activeLang);
+      onglet(lg.isHtml ? "ap" : "code");
+      etat("Projet « " + item.titre + " » chargé.", "ok");
+    };
+    row.querySelector(".dl-proj").onclick = function() {
+      var slug = item.titre.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "projet";
+      telechargerFichier(slug + extStr, item.code, item.mime || "text/plain;charset=utf-8");
+      etat("Téléchargement de " + slug + extStr + " lancé.", "ok");
+    };
+    row.querySelector(".del-proj").onclick = function() {
+      var next = chargerProjets().filter(function(p) { return p.id !== item.id; });
+      enregistrerProjets(next);
+      rendreProjets();
+      etat("Projet supprimé de l'historique local.", "ok");
+    };
+    box.appendChild(row);
+  });
+}
+
+$("save-proj-btn").onclick = sauvegarderProjetCourant;
+$("clear-proj-btn").onclick = function() {
+  enregistrerProjets([]);
+  rendreProjets();
+  etat("Historique local des projets vidé.", "ok");
+};
+majCompteurProjets();
+
+function escapeHtml(str) {
+  return String(str || "").replace(/[&<>"']/g, function(c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+
+// ==========================================
+// MOTEURS DE RECHERCHE OPEN SOURCE
+// ==========================================
+function extraireMotsCles(demande) {
+  var stop = ["un", "une", "des", "le", "la", "les", "de", "du", "et", "ou", "avec", "pour", "qui", "que", "quoi", "page", "site", "jeu", "faire", "creer", "créer", "veux", "mon", "ma", "mes", "sur", "dans", "en", "a", "à", "au", "aux", "programme", "application", "script", "code", "création", "creation", "fait", "par", "rapport", "temps", "fois", "comme", "plus", "ludique"];
+  var mots = String(demande || "").toLowerCase().replace(/[^a-zàâäéèêëîïôöùûüç0-9\s-]/gi, " ").split(/\s+/);
+  var filtres = [];
+  for (var i = 0; i < mots.length; i++) {
+    var m = mots[i].trim();
+    if (m.length >= 3 && stop.indexOf(m) < 0 && filtres.indexOf(m) < 0) filtres.push(m);
+    if (filtres.length >= 4) break;
+  }
+  return filtres.join(" ") || "code open source";
+}
+
+function fetchAvecDelai(url, ms) {
+  var c = new AbortController();
+  var t = setTimeout(function() { c.abort(); }, ms);
+  return fetch(url, { signal: c.signal }).then(
+    function(r) { clearTimeout(t); return r; },
+    function(e) { clearTimeout(t); throw e; }
+  );
+}
+
+async function chercherCodeberg(terme) {
+  var lg = getLangSpec(activeLang);
+  var suffix = lg.isHtml ? " html" : " " + lg.id;
+  var url = CODEBERG_API + "?q=" + encodeURIComponent(terme + suffix) + "&limit=4";
+  var res = await fetchAvecDelai(url, 6000);
+  if (!res.ok) throw new Error("Codeberg (" + res.status + ")");
+  var data = await res.json();
+  var items = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
+  return items.map(function(repo) {
+    return {
+      source: "codeberg",
+      label: "Codeberg",
+      fullName: repo.full_name || repo.name,
+      url: repo.html_url,
+      desc: repo.description || "",
+      stars: repo.stars_count || 0,
+      lang: repo.language || lg.label
+    };
+  });
+}
+
+async function chercherGitLab(terme) {
+  var lg = getLangSpec(activeLang);
+  var suffix = lg.isHtml ? " html" : " " + lg.id;
+  var url = GITLAB_API + "?search=" + encodeURIComponent(terme + suffix) + "&order_by=last_activity_at&per_page=4";
+  var res = await fetchAvecDelai(url, 6000);
+  if (!res.ok) throw new Error("GitLab (" + res.status + ")");
+  var items = await res.json();
+  if (!Array.isArray(items)) return [];
+  return items.map(function(repo) {
+    return {
+      source: "gitlab",
+      label: "GitLab",
+      fullName: repo.path_with_namespace || repo.name,
+      url: repo.web_url,
+      desc: repo.description || "",
+      stars: repo.star_count || 0,
+      lang: lg.label
+    };
+  });
+}
+
+function afficherResultatsOSS(items) {
+  derniersResultatsOSS = items.slice().sort(function(a, b) { return (b.stars || 0) - (a.stars || 0); });
+  $("oss-res").innerHTML = "";
+  if (!derniersResultatsOSS.length) {
+    ossEtat("Aucun projet open source trouvé.");
+    return;
+  }
+  ossEtat(derniersResultatsOSS.length + " projet(s) open source trouvé(s) (triés par popularité).");
+  derniersResultatsOSS.forEach(function(item, idx) {
+    var card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML =
+      '<div class="card-head">' +
+        '<a class="oss-title" href="' + escapeHtml(item.url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(item.fullName) + '</a>' +
+        '<span class="oss-badge">' + escapeHtml(item.label) + '</span>' +
+      '</div>' +
+      '<div class="oss-meta"><span>&#9733; ' + Number(item.stars || 0).toLocaleString("fr-FR") + '</span><span>' + escapeHtml(item.lang) + '</span></div>' +
+      '<p class="oss-desc">' + escapeHtml(item.desc || "Aucune description fournie.") + '</p>' +
+      '<div class="actions-row"><button type="button" class="sec small use-oss" data-idx="' + idx + '">Utiliser comme inspiration</button></div>';
+    card.querySelector(".use-oss").onclick = function() {
+      var ref = derniersResultatsOSS[idx];
+      var lg = getLangSpec(activeLang);
+      $("q").value = "Inspire-toi de " + ref.fullName + " (" + (ref.desc || ref.url) + ") pour créer un programme complet en " + lg.label + ".";
+      majCompteurCaracteres();
+      lance("go");
+    };
+    $("oss-res").appendChild(card);
+  });
+}
+
+async function executerRechercheOSS(terme, sourceChoix) {
+  var q = String(terme || "").trim();
+  if (!q) return [];
+  ossEtat("Recherche open source…");
+  var combines = [];
+  try {
+    var taches = [];
+    if (sourceChoix === "both" || sourceChoix === "codeberg") taches.push(chercherCodeberg(q).then(function(r) { combines = combines.concat(r); }).catch(function() {}));
+    if (sourceChoix === "both" || sourceChoix === "gitlab") taches.push(chercherGitLab(q).then(function(r) { combines = combines.concat(r); }).catch(function() {}));
+    await Promise.all(taches);
+    afficherResultatsOSS(combines);
+  } catch (e) {}
+  return combines;
+}
+
+$("oss-go").onclick = function() { executerRechercheOSS($("oss-q").value, $("oss-src").value); };
+$("oss-q").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    executerRechercheOSS($("oss-q").value, $("oss-src").value);
+  }
+});
+$("code-editor").addEventListener("keydown", function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    $("apply-code").click();
+  }
+});
+
+// ==========================================
+// SECOURS HORS-LIGNE GENERIQUE (SI PAS D'INTERNET NI D'IA LOCALE)
+// ==========================================
+function genererSecoursHorsLigne(demande, langSpec) {
+  var lg = langSpec || getLangSpec($("lang-select").value);
+  var titre = String(demande || "Mon Programme").trim().slice(0, 60);
+  titre = titre.charAt(0).toUpperCase() + titre.slice(1);
+
+  if (!lg.isHtml) {
+    if (lg.id === "python") {
+      return [
+        "# Vince Prod 73 — Mode secours hors-ligne",
+        '"""' + titre.replace(/"""/g, "") + '"""',
+        "",
+        "def traiter(texte: str) -> str:",
+        "    if not texte.strip():",
+        '        return "Entrée vide : fournis un texte ou des paramètres."',
+        '    return f"Traitement hors-ligne ({len(texte)} car.) : {texte.strip()}"',
+        "",
+        "def main() -> None:",
+        '    print("Mode hors-ligne actif — connecte Internet ou démarre Ollama pour la génération IA complète.")',
+        '    exemple = "Bonjour depuis Atelier HTML"',
+        "    print(traiter(exemple))",
+        "",
+        'if __name__ == "__main__":',
+        "    main()"
+      ].join("\n");
+    }
+    return [
+      "/* Vince Prod 73 — Mode secours hors-ligne (" + lg.label + ") */",
+      "// Connecte Internet ou démarre Ollama/LM Studio pour la génération IA complète.",
+      "// Demande : " + titre
+    ].join("\n");
+  }
+
+  return [
+    "<!-- Vince Prod 73 -->",
+    "<!DOCTYPE html>",
+    "<html lang='fr'>",
+    "<head>",
+    "<meta charset='utf-8'>",
+    "<meta name='viewport' content='width=device-width,initial-scale=1'>",
+    "<title>" + escapeHtml(titre) + "</title>",
+    "<style>",
+    ":root{--bg:#0f172a;--card:#1e293b;--border:#334155;--accent:#38bdf8;--text:#f8fafc;--muted:#94a3b8}",
+    "*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;display:grid;place-items:center;padding:20px}",
+    ".box{width:100%;max-width:600px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px}",
+    "h1{margin:0 0 8px;font-size:1.4rem;color:var(--accent)}p{color:var(--muted);margin:0 0 16px}",
+    ".warn{background:rgba(255,143,107,.12);border:1px solid #ff8f6b;color:#ffb49e;padding:12px;border-radius:10px;font-size:.9rem;margin-bottom:16px}",
+    "textarea{width:100%;min-height:110px;background:#090d16;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:12px;font:inherit}",
+    "button{margin-top:12px;padding:10px 16px;border-radius:10px;border:0;background:var(--accent);color:#082f49;font-weight:700;cursor:pointer}",
+    "#out{margin-top:14px;padding:12px;background:#090d16;border-radius:10px;min-height:48px;white-space:pre-wrap}",
+    "</style>",
+    "</head>",
+    "<body>",
+    "<div class='box'>",
+    "  <h1>" + escapeHtml(titre) + "</h1>",
+    "  <div class='warn'>Mode hors-ligne détecté (aucune IA en ligne ni serveur Ollama local joignable). Branche Internet ou démarre Ollama/LM Studio pour la génération IA complète.</div>",
+    "  <textarea id='inp' placeholder='Saisis une donnée à traiter...'></textarea>",
+    "  <button id='run'>Exécuter</button>",
+    "  <div id='out'>Prêt.</div>",
+    "</div>",
+    "<scr" + "ipt>",
+    "document.getElementById('run').onclick=function(){const v=document.getElementById('inp').value.trim();document.getElementById('out').textContent=v?'Traitement effectué ('+v.length+' caractères) : '+v:'Entre une valeur ci-dessus.';};",
+    "<\/script>",
+    "</body>",
+    "</html>"
+  ].join("\n");
+}
+
+// ==========================================
+// APPEL IA REEL (IA GRATUITE EN LIGNE, OLLAMA, LM STUDIO, OPENAI)
+// ==========================================
+function attendre(ms) {
+  return new Promise(function(resolve) { setTimeout(resolve, ms); });
+}
+
+async function appelerEndpointIA(url, model, messages, headers, aff) {
+  var res = await fetch(url, {
+    method: "POST",
+    headers: headers,
+    signal: ctrl ? ctrl.signal : undefined,
+    body: JSON.stringify({
+      model: model,
+      messages: messages,
+      stream: true
+    })
+  });
+
+  if (!res.ok) {
+    var errMsg = "HTTP " + res.status;
+    try {
+      var errJson = await res.json();
+      var detail = errJson && errJson.error;
+      if (detail && typeof detail === "object") detail = detail.message;
+      if (!detail && errJson && errJson.message) detail = errJson.message;
+      if (detail) errMsg += " : " + String(detail).slice(0, 160);
+    } catch (e) {}
+    var erreur = new Error(errMsg);
+    erreur.retentable = res.status === 429 || res.status >= 500;
+    throw erreur;
+  }
+
+  if (!res.body || !res.body.getReader) {
+    var data = await res.json();
+    var txt = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || "";
+    if (aff) aff({ text: txt });
+    return { text: txt };
+  }
+
+  var reader = res.body.getReader();
+  var decoder = new TextDecoder("utf-8");
+  var fullText = "", tampon = "", brut = "";
+
+  function traiterLigne(ligne) {
+    ligne = ligne.trim();
+    if (ligne.indexOf("data:") !== 0) return;
+    var payload = ligne.slice(5).trim();
+    if (!payload || payload === "[DONE]") return;
+    try {
+      var json = JSON.parse(payload);
+      var ch = json.choices && json.choices[0];
+      var delta = ch && ((ch.delta && ch.delta.content) || (ch.message && ch.message.content));
+      if (delta) {
+        fullText += delta;
+        if (aff) aff({ text: fullText });
+      }
+    } catch (e) {}
+  }
+
+  while (true) {
+    var chunk = await reader.read();
+    if (chunk.done) break;
+    var morceau = decoder.decode(chunk.value, { stream: true });
+    if (brut.length < 400000) brut += morceau;
+    tampon += morceau;
+    var lignes = tampon.split("\n");
+    tampon = lignes.pop();
+    for (var i = 0; i < lignes.length; i++) traiterLigne(lignes[i]);
+  }
+  tampon += decoder.decode();
+  if (tampon) {
+    var dernieres = tampon.split("\n");
+    for (var j = 0; j < dernieres.length; j++) traiterLigne(dernieres[j]);
+  }
+
+  if (!fullText) {
+    try {
+      var d2 = JSON.parse(brut);
+      var t2 = d2.choices && d2.choices[0] && d2.choices[0].message && d2.choices[0].message.content;
+      if (t2) {
+        fullText = t2;
+        if (aff) aff({ text: fullText });
+      }
+    } catch (e) {}
+  }
+  return { text: fullText };
+}
+
+async function appelerAvecReessai(url, model, messages, headers, aff) {
+  try {
+    return await appelerEndpointIA(url, model, messages, headers, aff);
+  } catch (err) {
+    if (err && err.name === "AbortError") throw err;
+    if (err && err.retentable) {
+      etat("Serveur IA occupé (" + err.message + "), nouvel essai dans 4 s…", "live");
+      await attendre(4000);
+      return await appelerEndpointIA(url, model, messages, headers, aff);
+    }
+    throw err;
+  }
+}
+
+async function appelle(p, aff, options) {
+  var lg = (options && options.langSpec) || getLangSpec(activeLang);
+  var prov = $("provider").value;
+  var headers = { "Content-Type": "application/json" };
+  var key = $("apikey").value.trim();
+  var model = (prov !== "auto" && $("model-custom").value.trim()) || $("model").value;
+
+  var messages = [
+    { role: "system", content: buildSystemPrompt(lg, (demandeInitiale + " " + ((options && options.demande) || "")).trim()) },
+    { role: "user", content: p }
+  ];
+
+  if (prov === "auto") {
+    var essais = [];
+    if (key) {
+      essais.push({ nom: "Pollinations (clé)", url: POLLINATIONS_KEY_URL, model: model, headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key } });
+    }
+    essais.push({ nom: "Pollinations (gratuit)", url: POLLINATIONS_URL, model: model, headers: { "Content-Type": "application/json" } });
+    essais.push({ nom: "Ollama local", url: ENGINE_URLS.ollama, model: "qwen3:8b", headers: { "Content-Type": "application/json" } });
+
+    var raisons = [];
+    for (var k = 0; k < essais.length; k++) {
+      var e = essais[k];
+      try {
+        if (k > 0) etat(raisons[k - 1] + " — essai : " + e.nom + "…", "live");
+        return await appelerAvecReessai(e.url, e.model, messages, e.headers, aff);
+      } catch (err) {
+        if (err && err.name === "AbortError") throw err;
+        var msg = (err && err.message) || "échec";
+        if (/failed to fetch|networkerror|load failed/i.test(msg)) msg = "injoignable";
+        raisons.push(e.nom + " : " + msg);
+      }
+    }
+    var fallbackCode = genererSecoursHorsLigne((options && options.demande) || $("q").value, lg);
+    if (aff) aff({ text: fallbackCode });
+    return { text: fallbackCode, offlineFallback: true, raisons: raisons.join(" | ") };
+  }
+
+  if (prov === "openai" && !key) {
+    throw new Error("Entre ta clé API OpenAI (sk-...) ou sélectionne « IA Automatique ».");
+  }
+  if (prov === "gemini" && !key) {
+    throw new Error("Colle ta clé Gemini gratuite (à créer sur aistudio.google.com/apikey) dans le champ « Clé ».");
+  }
+  if (prov === "groq" && !key) {
+    throw new Error("Colle ta clé Groq gratuite (à créer sur console.groq.com/keys) dans le champ « Clé ».");
+  }
+  if (key) headers["Authorization"] = "Bearer " + key;
+  var customUrl = $("endpoint-url").value.trim();
+  var url = prov === "openai" ? OPENAI_URL : (customUrl || ENGINE_URLS[prov] || POLLINATIONS_URL);
+  try {
+    return await appelerAvecReessai(url, model, messages, headers, aff);
+  } catch (err2) {
+    if (err2 && err2.name === "AbortError") throw err2;
+    var m2 = (err2 && err2.message) || "échec";
+    if (/failed to fetch|networkerror|load failed/i.test(m2)) m2 = "serveur injoignable (" + url + ")";
+    throw new Error("Erreur IA : " + m2);
+  }
+}
+
+async function ecrit(p, options) {
+  var lg = (options && options.langSpec) || getLangSpec(activeLang);
+  onglet("code");
+  var r = await appelle(p, function(x) {
+    var t = nettoie(x.text, lg);
+    if (t) $("code-editor").value = t;
+  }, options);
+  var t = nettoie(r.text, lg), n = 0;
+  var isCompleteHtml = lg.isHtml ? /<\/html>\s*$/i.test(t) : true;
+  while (!r.offlineFallback && lg.isHtml && !isCompleteHtml && /<\w/.test(t) && n < 3) {
+    n++;
+    etat("Fichier long, l'IA écrit la suite (" + n + "/3)…", "live");
+    var base = t;
+    var c = await appelle("Le fichier HTML ci-dessous a été coupé. Écris UNIQUEMENT la suite exacte, qui reprend au caractère suivant, sans rien répéter ni ajouter de markdown, jusqu’à </html>.\n\nFin du fichier actuel :\n" + base.slice(-6000), function(x) {
+      $("code-editor").value = base + sansFence(x.text, lg);
+    }, options);
+    t = base + sansFence(c.text, lg);
+    isCompleteHtml = /<\/html>\s*$/i.test(t);
+  }
+  return { text: t, offlineFallback: Boolean(r.offlineFallback) };
+}
+
+async function lance(mode) {
+  var q = $("q").value.trim();
+  if (busy) return;
+  if (mode === "go" && !q) {
+    etat("Écris d’abord ce que tu veux coder.", "err");
+    return;
+  }
+  var lg = getLangSpec($("lang-select").value);
+  activeLang = lg.id;
+  majLangageUI();
+  if (mode === "go") autoFixCount = 0;
+
+  busy = true;
+  maj();
+  ctrl = new AbortController();
+  var avant = codeContent;
+  var relancerRev = false;
+  if (mode === "go" && !codeContent) demandeInitiale = q;
+
+  try {
+    var p = "", contexteOSS = "", trouves = [];
+    if (mode === "rev") {
+      etat("L'IA relit le code (" + lg.label + ") et corrige les erreurs…", "live");
+      p = "Voici un code en " + lg.label + " à relire comme un ingénieur senior. Corrige les bugs de logique, fonctions manquantes, variables non déclarées, erreurs d'exécution et problèmes de structure." + (errs.length ? "\nErreurs détectées :\n- " + errs.join("\n- ") : "") + (q ? "\nConsigne supplémentaire : " + q : "") + "\n\nRenvoie le code COMPLET corrigé :\n" + codeContent;
+    } else if (codeContent) {
+      etat("L'IA modifie ton projet (" + lg.label + ") selon ta demande…", "live");
+      p = "Voici le code actuel (" + lg.label + ") :\n" + codeContent + "\n\nModifie ou améliore ce projet selon cette nouvelle demande de l'utilisateur, en conservant tout ce qui fonctionne déjà, et renvoie le code COMPLET en " + lg.label + " :\n" + q;
+    } else {
+      if ($("auto-oss").checked) {
+        etat("Recherche d'inspirations open source…", "live");
+        var mots = extraireMotsCles(q);
+        $("oss-q").value = mots;
+        trouves = await executerRechercheOSS(mots, $("oss-src").value);
+        if (trouves.length) {
+          contexteOSS = "\n\nProjets open source similaires, à titre d'inspiration seulement (ne pas les recopier, la demande ci-dessus reste prioritaire) :\n" + trouves.slice(0, 3).map(function(it) {
+            return "- " + it.fullName + " : " + (it.desc || "projet open source");
+          }).join("\n");
+        }
+      }
+      etat("L'IA code ton projet en " + lg.label + "…", "live");
+      p = "Crée un programme ou une solution complète, propre et 100% fonctionnelle en " + lg.label + " correspondant exactement à cette demande :\n" + q + contexteOSS;
+    }
+
+    var res = await ecrit(p, { demande: q, langSpec: lg });
+    var t = res.text;
+    if (!t || !t.trim()) {
+      etat("La réponse de l'IA est vide.", "err");
+      montre(avant);
+      busy = false;
+      maj();
+      return;
+    }
+
+    var verif = verifierEtReparerCode(t, lg);
+    if (avant) hist.push(avant);
+    derniereDemandeCreee = q;
+    montre(verif.code);
+    onglet(lg.isHtml ? "ap" : "code");
+    var statiques = (lg.isHtml && !res.offlineFallback) ? analyserCodeHtml(verif.code) : [];
+    if (statiques.length) {
+      errs = statiques.slice();
+      maj();
+      if ($("auto-fix-loop").checked && autoFixCount < 2) relancerRev = true;
+    }
+
+    if (res.offlineFallback) {
+      etat("Mode hors-ligne : connecte Internet ou démarre Ollama pour que l'IA code ton programme.", "err");
+    } else {
+      var repNote = verif.reparations.length ? " (" + verif.reparations.join(", ") + ")" : "";
+      etat("Code " + lg.label + " (" + lg.ext + ") généré et prêt !" + repNote, "ok");
+    }
+  } catch (e) {
+    montre(avant);
+    if (e && e.name === "AbortError") etat("Génération arrêtée.");
+    else etat((e && e.message) || "Échec de la génération IA", "err");
+  }
+  ctrl = null;
+  busy = false;
+  maj();
+  if (relancerRev) {
+    autoFixCount++;
+    etat("Contrôle automatique : " + errs[0] + " — correction IA " + autoFixCount + "/2…", "err");
+    setTimeout(function() { if (!busy && errs.length) lance("rev"); }, 400);
+  }
+}
+
+$("go").onclick = function() { if (autoTimer) clearTimeout(autoTimer); lance("go"); };
+$("rev").onclick = function() { autoFixCount = 0; lance("rev"); };
+
+
+// ==========================================
+// MODELES RICHES PRETS A L'EMPLOI
+// ==========================================
+var STARTER_TEMPLATES = [
+  {
+    id: "kanban-neon",
+    titre: "Kanban & Tâches (HTML/CSS/JS)",
+    lang: "html",
+    fileName: "kanban-studio.html",
+    desc: "Tableau de tâches avec colonnes À faire / En cours / Terminé, priorités, filtres et sauvegarde locale.",
+    code: [
+      "<!-- Vince Prod 73 -->",
+      "<!DOCTYPE html>",
+      "<html lang='fr'>",
+      "<head>",
+      "<meta charset='utf-8'>",
+      "<meta name='viewport' content='width=device-width,initial-scale=1'>",
+      "<title>Kanban Studio — Atelier HTML</title>",
+      "<style>",
+      ":root{--bg:#090d16;--card:#111827;--card2:#1a2438;--txt:#f1f5f9;--muted:#94a3b8;--acc:#38bdf8;--ok:#22c55e;--warn:#f59e0b;--bd:#26334d}",
+      "*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,sans-serif;padding:20px}",
+      ".wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:16px}",
+      "header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:var(--card);padding:16px;border:1px solid var(--bd);border-radius:12px}",
+      "h1{margin:0;font-size:1.3rem;color:var(--acc)}.stats{display:flex;gap:10px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}",
+      ".pill{background:var(--card2);padding:4px 10px;border-radius:999px;border:1px solid var(--bd)}",
+      ".add-bar{display:grid;grid-template-columns:1fr 150px auto;gap:8px}@media(max-width:640px){.add-bar{grid-template-columns:1fr}}",
+      "input,select,button{font:inherit;border-radius:8px;border:1px solid var(--bd);padding:10px 12px}",
+      "input,select{background:var(--card);color:var(--txt)}button{background:var(--acc);color:#06131e;font-weight:700;cursor:pointer;border:0}",
+      ".cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:820px){.cols{grid-template-columns:1fr}}",
+      ".col{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px;min-height:240px}",
+      ".col-title{font-weight:700;font-size:.95rem;display:flex;justify-content:space-between;align-items:center}",
+      ".task{background:var(--card2);border:1px solid var(--bd);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px}",
+      ".task-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}",
+      ".prio{font-size:.72rem;padding:2px 7px;border-radius:6px;font-weight:700}",
+      ".p-haute{background:rgba(239,68,68,.18);color:#fca5a5}.p-normale{background:rgba(56,189,248,.18);color:#7dd3fc}.p-basse{background:rgba(34,197,94,.18);color:#86efac}",
+      ".task-actions{display:flex;gap:6px;flex-wrap:wrap}.task-actions button{padding:5px 8px;font-size:.75rem;background:#25334d;color:var(--txt)}",
+      ".task-actions button.del{background:rgba(239,68,68,.2);color:#fca5a5}",
+      "</style>",
+      "</head>",
+      "<body>",
+      "<div class='wrap'>",
+      "  <header>",
+      "    <div><h1>Tableau Kanban Rapide</h1><div class='stats' id='stats'></div></div>",
+      "    <button type='button' id='reset-demo'>Réinitialiser démo</button>",
+      "  </header>",
+      "  <form class='add-bar' id='add-form'>",
+      "    <input id='task-title' placeholder='Nouvelle tâche (ex. Finaliser la page d\\'accueil)...' required>",
+      "    <select id='task-prio'><option value='normale'>Priorité normale</option><option value='haute'>Priorité haute</option><option value='basse'>Priorité basse</option></select>",
+      "    <button type='submit'>Ajouter</button>",
+      "  </form>",
+      "  <div class='cols' id='board'></div>",
+      "</div>",
+      "<scr" + "ipt>",
+      "(function(){",
+      "var memStore=null;var KEY='atelier_kanban_demo_v1';",
+      "var COLS=[{id:'todo',label:'À faire'},{id:'doing',label:'En cours'},{id:'done',label:'Terminé'}];",
+      "var DEFAULTS=[",
+      "  {id:'1',titre:'Structurer la maquette d\\'accueil',prio:'haute',col:'todo'},",
+      "  {id:'2',titre:'Tester l\\'affichage mobile et clavier',prio:'normale',col:'doing'},",
+      "  {id:'3',titre:'Préparer la sauvegarde locale',prio:'basse',col:'done'}",
+      "];",
+      "function load(){try{var raw=localStorage.getItem(KEY);if(raw){var p=JSON.parse(raw);if(Array.isArray(p))return p;}}catch(e){}return memStore?memStore.slice():DEFAULTS.slice();}",
+      "function save(list){memStore=list.slice();try{localStorage.setItem(KEY,JSON.stringify(list));}catch(e){}}",
+      "var tasks=load();",
+      "function esc(s){return String(s).replace(/[&<>\"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c];});}",
+      "function render(){",
+      "  var total=tasks.length,done=tasks.filter(function(t){return t.col==='done';}).length;",
+      "  document.getElementById('stats').innerHTML='<span class=\"pill\">Total : '+total+'</span><span class=\"pill\">Terminées : '+done+'/'+total+'</span>';",
+      "  var board=document.getElementById('board');board.innerHTML='';",
+      "  COLS.forEach(function(col){",
+      "    var items=tasks.filter(function(t){return t.col===col.id;});",
+      "    var el=document.createElement('section');el.className='col';",
+      "    el.innerHTML='<div class=\"col-title\"><span>'+esc(col.label)+'</span><span class=\"pill\">'+items.length+'</span></div>';",
+      "    items.forEach(function(t){",
+      "      var card=document.createElement('article');card.className='task';",
+      "      var nextLabel=col.id==='todo'?'Démarrer':(col.id==='doing'?'Terminer':'Rouvrir');",
+      "      card.innerHTML='<div class=\"task-top\"><strong>'+esc(t.titre)+'</strong><span class=\"prio p-'+esc(t.prio)+'\">'+esc(t.prio)+'</span></div><div class=\"task-actions\"><button type=\"button\" data-move=\"'+t.id+'\">'+nextLabel+'</button><button type=\"button\" class=\"del\" data-del=\"'+t.id+'\">Suppr.</button></div>';",
+      "      el.appendChild(card);",
+      "    });",
+      "    board.appendChild(el);",
+      "  });",
+      "}",
+      "document.getElementById('add-form').addEventListener('submit',function(e){",
+      "  e.preventDefault();var inp=document.getElementById('task-title');var v=inp.value.trim();if(!v)return;",
+      "  tasks.unshift({id:String(Date.now())+Math.random().toString(36).slice(2,6),titre:v,prio:document.getElementById('task-prio').value,col:'todo'});",
+      "  save(tasks);inp.value='';render();",
+      "});",
+      "document.getElementById('board').addEventListener('click',function(e){",
+      "  var mv=e.target.getAttribute('data-move');var dl=e.target.getAttribute('data-del');",
+      "  if(mv){tasks=tasks.map(function(t){if(t.id!==mv)return t;var n=t.col==='todo'?'doing':(t.col==='doing'?'done':'todo');return{id:t.id,titre:t.titre,prio:t.prio,col:n};});save(tasks);render();}",
+      "  if(dl){tasks=tasks.filter(function(t){return t.id!==dl;});save(tasks);render();}",
+      "});",
+      "document.getElementById('reset-demo').addEventListener('click',function(){tasks=DEFAULTS.slice();save(tasks);render();});",
+      "render();",
+      "})();",
+      "<\/script>",
+      "</body>",
+      "</html>"
+    ].join("\n")
+  },
+  {
+    id: "py-csv-analyzer",
+    titre: "Analyseur CSV & Résumé (Python)",
+    lang: "python",
+    fileName: "analyse_csv.py",
+    desc: "Script Python complet avec lecture CSV sécurisée, statistiques numériques et export JSON.",
+    code: [
+      "# Vince Prod 73 — Analyseur CSV & Export JSON",
+      "\"\"\"Utilitaire CLI pour analyser un fichier CSV et générer un résumé statistique JSON.\"\"\"",
+      "",
+      "from __future__ import annotations",
+      "import csv",
+      "import json",
+      "from pathlib import Path",
+      "from statistics import mean",
+      "from typing import Any",
+      "",
+      "",
+      "def analyser_lignes(lignes: list[dict[str, str]]) -> dict[str, Any]:",
+      "    \"\"\"Calcule le nombre de lignes, les colonnes et les moyennes des colonnes numériques.\"\"\"",
+      "    if not lignes:",
+      "        return {\"lignes\": 0, \"colonnes\": [], \"moyennes_numeriques\": {}}",
+      "    colonnes = list(lignes[0].keys())",
+      "    stats_cols: dict[str, list[float]] = {c: [] for c in colonnes}",
+      "    for row in lignes:",
+      "        for col in colonnes:",
+      "            raw = (row.get(col) or \"\").strip().replace(\",\", \".\")",
+      "            if not raw:",
+      "                continue",
+      "            try:",
+      "                stats_cols[col].append(float(raw))",
+      "            except ValueError:",
+      "                pass",
+      "    moyennes = {",
+      "        col: round(mean(vals), 2)",
+      "        for col, vals in stats_cols.items()",
+      "        if len(vals) >= max(1, len(lignes) // 2)",
+      "    }",
+      "    return {",
+      "        \"lignes\": len(lignes),",
+      "        \"colonnes\": colonnes,",
+      "        \"moyennes_numeriques\": moyennes,",
+      "    }",
+      "",
+      "",
+      "def charger_csv(chemin: Path) -> list[dict[str, str]]:",
+      "    if not chemin.exists() or not chemin.is_file():",
+      "        raise FileNotFoundError(f\"Fichier introuvable : {chemin}\")",
+      "    with chemin.open(\"r\", encoding=\"utf-8\", newline=\"\") as f:",
+      "        return list(csv.DictReader(f))",
+      "",
+      "",
+      "def main() -> None:",
+      "    exemple_lignes = [",
+      "        {\"projet\": \"Atelier HTML\", \"heures\": \"6.5\", \"score\": \"95\"},",
+      "        {\"projet\": \"Module Import\", \"heures\": \"3.0\", \"score\": \"92\"},",
+      "        {\"projet\": \"Tests Auto\", \"heures\": \"2.5\", \"score\": \"98\"},",
+      "    ]",
+      "    rapport = analyser_lignes(exemple_lignes)",
+      "    print(\"Rapport d'exemple :\", json.dumps(rapport, ensure_ascii=False, indent=2))",
+      "",
+      "",
+      "if __name__ == \"__main__\":",
+      "    main()"
+    ].join("\n")
+  },
+  {
+    id: "json-schema-config",
+    titre: "Configuration App (JSON)",
+    lang: "json",
+    fileName: "app-config.json",
+    desc: "Structure JSON propre pour paramétrer une application, un thème ou des raccourcis.",
+    code: JSON.stringify({
+      app: "Atelier HTML Studio",
+      version: "3.2",
+      author: "Vince Prod 73",
+      theme: {
+        mode: "neon-dark",
+        accent: "#fcee0a",
+        secondary: "#00f0ff",
+        reducedMotion: false
+      },
+      features: {
+        autoRepair: true,
+        localBackup: true,
+        multiLanguageExport: true
+      }
+    }, null, 2)
+  }
+];
+
+function peuplerModelesDemarrage() {
+  var box = $("starter-templates");
+  if (!box) return;
+  box.innerHTML = "";
+  STARTER_TEMPLATES.forEach(function(tpl) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "sec small";
+    btn.textContent = tpl.titre;
+    btn.title = tpl.desc;
+    btn.onclick = function() {
+      importerDansAtelier(tpl.code, tpl.fileName, tpl.lang);
+    };
+    box.appendChild(btn);
+  });
+}
+peuplerModelesDemarrage();
+
+function resumerStructureCode(codeStr, langSpec) {
+  var src = String(codeStr || "");
+  if (!src.trim()) return "Aucun code actif.";
+  var lignes = src.split(/\r?\n/).length;
+  var lg = langSpec || getLangSpec(activeLang);
+  if (lg.isHtml) {
+    var blocs = extraireBlocsCode(src);
+    var styleCount = (src.match(/<style\b/gi) || []).length;
+    var scriptCount = (src.match(/<script\b/gi) || []).length;
+    return lignes + " lignes • " + styleCount + " bloc(s) <style> • " + scriptCount + " bloc(s) <script> • JS : " + (blocs.js ? blocs.js.split(/\r?\n/).length : 0) + " lignes";
+  }
+  var fnMatches = src.match(/\b(?:def|function|fn|func)\s+[A-Za-z_][\w]*/g) || [];
+  return lignes + " lignes • " + fnMatches.length + " fonction(s)/définition(s) repérée(s)";
+}
+
+var oldMajExtraction = majExtraction;
+majExtraction = function() {
+  oldMajExtraction();
+  var lg = getLangSpec(activeLang);
+  var info = $("extract-info");
+  if (info && codeContent && codeContent.trim()) {
+    var oldBadge = info.querySelector(".struct-badge");
+    if (oldBadge) oldBadge.remove();
+    info.insertAdjacentHTML("beforeend", ' <span class="oss-badge struct-badge">' + escapeHtml(resumerStructureCode(codeContent, lg)) + '</span>');
+  }
+};
+
+
+// ==========================================
+// CONSOLE D'EXECUTION SANDBOX (JS / JSON / HTML)
+// ==========================================
+function executerCodeDansSandbox() {
+  var code = $("code-editor").value || codeContent;
+  var lg = getLangSpec(activeLang);
+  var panel = $("sandbox-console");
+  var outEl = $("sandbox-out");
+  panel.classList.remove("hide");
+
+  if (!code.trim()) {
+    outEl.textContent = "Aucun code à exécuter.";
+    return;
+  }
+
+  if (lg.id === "json") {
+    try {
+      var parsed = JSON.parse(code);
+      var keys = Array.isArray(parsed) ? ("Tableau de " + parsed.length + " élément(s)") : ("Objet avec clés : " + Object.keys(parsed).join(", "));
+      outEl.textContent = "[JSON VALIDE] " + keys + "\n\n" + JSON.stringify(parsed, null, 2);
+      etat("JSON validé et formaté dans la console.", "ok");
+    } catch (e) {
+      outEl.textContent = "[ERREUR JSON] " + e.message;
+      etat("Erreur de syntaxe JSON : " + e.message, "err");
+    }
+    return;
+  }
+
+  if (lg.id === "javascript") {
+    var logs = [];
+    var fakeConsole = {
+      log: function() { logs.push(Array.prototype.slice.call(arguments).map(String).join(" ")); },
+      info: function() { logs.push("[INFO] " + Array.prototype.slice.call(arguments).map(String).join(" ")); },
+      warn: function() { logs.push("[WARN] " + Array.prototype.slice.call(arguments).map(String).join(" ")); },
+      error: function() { logs.push("[ERR] " + Array.prototype.slice.call(arguments).map(String).join(" ")); }
+    };
+    try {
+      var fn = new Function("console", code);
+      var ret = fn(fakeConsole);
+      if (ret !== undefined) logs.push("=> Valeur de retour : " + (typeof ret === "object" ? JSON.stringify(ret) : String(ret)));
+      outEl.textContent = logs.length ? logs.join("\n") : "[Exécution JS terminée sans sortie console]";
+      etat("Script JavaScript exécuté avec succès.", "ok");
+    } catch (err) {
+      outEl.textContent = (logs.length ? logs.join("\n") + "\n" : "") + "[EXCEPTION JS] " + err.message;
+      etat("Erreur d'exécution JS : " + err.message, "err");
+    }
+    return;
+  }
+
+  if (lg.isHtml) {
+    $("apply-code").click();
+    outEl.textContent = "[APERÇU HTML MIS À JOUR] " + resumerStructureCode($("code-editor").value, lg);
+    return;
+  }
+
+  outEl.textContent = "[ANALYSE STATIQUE — " + lg.label + "]\n" +
+    resumerStructureCode(code, lg) + "\n" +
+    "Ce langage (" + lg.ext + ") s'exécute nativement sur ton poste après téléchargement.";
+  etat("Analyse statique terminée pour " + lg.label + ".", "ok");
+}
+
+$("run-sandbox-btn").onclick = executerCodeDansSandbox;
+$("close-sandbox-btn").onclick = function() { $("sandbox-console").classList.add("hide"); };
+
+async function executerTestsAuto() {
+  var list = $("diag-list");
+  list.innerHTML = "";
+  var tests = [];
+
+  var okLangs = Array.isArray(LANGUAGES) && LANGUAGES.length >= 25 && Boolean(getLangSpec("python")) && getLangSpec("python").ext === ".py" && detecterLangageFichier("test.py", "") === "python";
+  tests.push({ nom: "1. Catalogue multi-langages & mode Python (.py)", ok: okLangs, detail: okLangs ? "OK (" + LANGUAGES.length + " langages actifs)" : "Échec" });
+
+  var repare = verifierEtReparerCode("<html><body><h1>Test");
+  var okRep = /<!DOCTYPE html>/i.test(repare.code) && /<\/html>\s*$/i.test(repare.code);
+  tests.push({ nom: "2. Vérification & réparation structure HTML", ok: okRep, detail: okRep ? "OK (" + repare.reparations.join(", ") + ")" : "Échec" });
+
+  var ext = extraireBlocsCode("<!DOCTYPE html><html><head><style>body{margin:0}</style></head><body><scr" + "ipt>let a=1;<\/script></body></html>");
+  var okExt = ext.css === "body{margin:0}" && ext.js === "let a=1;" && /href="style\.css"/.test(ext.htmlOnly) && /src="app\.js"/.test(ext.htmlOnly);
+  tests.push({ nom: "3. Extracteur HTML / CSS / JavaScript + liens relatifs", ok: okExt, detail: okExt ? "OK (Blocs isolés & liés)" : "Échec" });
+
+  var okSonde = typeof SONDE === "string" && SONDE.indexOf("console.error") > -1 && SONDE.indexOf("unhandledrejection") > -1 && typeof sonde("<html><head></head><body></body></html>") === "string";
+  tests.push({ nom: "3b. Sonde runtime & console.error", ok: okSonde, detail: okSonde ? "OK (Actif)" : "Échec" });
+
+  var okStorage = false;
+  try {
+    localStorage.setItem("__atelier_test__", "1");
+    okStorage = localStorage.getItem("__atelier_test__") === "1";
+    localStorage.removeItem("__atelier_test__");
+  } catch (e) {}
+  tests.push({ nom: "4. Persistance locale (localStorage)", ok: okStorage, detail: okStorage ? "OK (Lecture/écriture active)" : "Indisponible" });
+
+  var okTemplates = Array.isArray(STARTER_TEMPLATES) && STARTER_TEMPLATES.length >= 3 && typeof genererSecoursHorsLigne === "function" && genererSecoursHorsLigne("Test", getLangSpec("python")).indexOf("def main") > -1;
+  tests.push({ nom: "4b. Modèles de démarrage & secours hors-ligne", ok: okTemplates, detail: okTemplates ? "OK (" + STARTER_TEMPLATES.length + " modèles + secours actif)" : "Échec" });
+
+  var okApi = false, detailApi = "";
+  try {
+    var r = await fetch(POLLINATIONS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "openai", messages: [{ role: "user", content: "Réponds juste OK" }] })
+    });
+    okApi = r.ok;
+    detailApi = r.ok ? "OK (IA en ligne accessible)" : "HTTP " + r.status;
+  } catch (e) {
+    detailApi = "Hors-ligne ou bloqué (" + e.message + ")";
+  }
+  tests.push({ nom: "5. Moteur IA en ligne (IA Automatique)", ok: okApi, detail: detailApi });
+
+  tests.forEach(function(t) {
+    var row = document.createElement("div");
+    row.className = "diag-item";
+    row.innerHTML = '<span>' + escapeHtml(t.nom) + '</span><span class="' + (t.ok ? "diag-ok" : "diag-err") + '">' + escapeHtml(t.detail) + '</span>';
+    list.appendChild(row);
+  });
+}
+
+$("run-diag").onclick = executerTestsAuto;
+$("test-btn").onclick = function() {
+  onglet("diag");
+  executerTestsAuto();
+};
+</script>
+</body>
+</html>
